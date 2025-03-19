@@ -1,0 +1,19 @@
+mat-tab-group {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+mat-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+mat-list-item:last-child {
+    border-bottom: none;
+}
+
+mat-icon {
+    font-size: 24px;
+}

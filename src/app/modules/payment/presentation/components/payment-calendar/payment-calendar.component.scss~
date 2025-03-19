@@ -1,0 +1,22 @@
+/* Ensure the parent container does not shrink */
+.col-span-2 {
+    @apply w-full min-h-[600px] flex flex-col;
+}
+
+/* Prevent FullCalendar from shrinking */
+.calendar-wrapper {
+    @apply w-full h-full flex-grow overflow-hidden;
+}
+
+/* Ensure FullCalendar takes full size */
+.calendar {
+    @apply w-full h-full;
+}
+
+/* Fix potential layout shifts */
+.fc {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+    max-height: 100%;
+}
