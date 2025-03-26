@@ -1,0 +1,60 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-2xl font-bold">Investissements Partenaires</h1>
+            <button mat-flat-button color="primary">
+                <mat-icon>add</mat-icon>
+                Ajouter un investisseur
+            </button>
+        </div>
+
+        <!-- Investment Cards Grid with Gaps -->
+        <div class="flex flex-wrap -mx-2 mb-6">
+            @for (card of cards(); track $index) {
+                <div class="w-full sm:w-1/2 lg:w-1/4 px-2 mb-4">
+                    <app-investment-card
+                        [label]="card.label"
+                        [value]="card.value"
+                        [description]="card.description"
+                        [trend]="card.trend"
+                        [trendColor]="card.trendColor">
+                    </app-investment-card>
+                </div>
+            }
+        </div>
+
+        <!-- Toggle Tabs -->
+        <mat-button-toggle-group
+            class="bg-white p-2 rounded-md flex gap-2 shadow mb-6"
+            [value]="selectedTab()"
+            (change)="selectTab($event.value)"
+            appearance="legacy">
+
+            <mat-button-toggle value="dashboard">Tableau de bord</mat-button-toggle>
+            <mat-button-toggle value="investors">Liste des investisseurs</mat-button-toggle>
+            <mat-button-toggle value="trends">Analyse des tendances</mat-button-toggle>
+            <mat-button-toggle value="recommendations">Recommandations</mat-button-toggle>
+        </mat-button-toggle-group>
+
+
+        @switch (selectedTab()) {
+            @case ('dashboard') {
+
+                 <app-dashboard/>
+            }
+            @case ('investors') {
+
+                 <app-investor-list/>
+            }
+            @case ('trends') {
+
+                 <app-trend-analysis/>
+            }
+            @case ('recommendations') {
+                <h1>hello recomodation</h1>
+                <!-- <app-recommendations></app-recommendations> -->
+            }
+        }
+    </div>
+</div>

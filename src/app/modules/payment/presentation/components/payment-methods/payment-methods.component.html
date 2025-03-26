@@ -8,7 +8,7 @@
                     Gérez vos méthodes de paiement pour le traitement automatisé
                 </p>
             </div>
-            <button mat-flat-button color="primary" (click)="addPaymentMethod()">
+            <button mat-flat-button color="primary" (click)="openAddPaymentModal()">
                 <mat-icon>add</mat-icon> Ajouter
             </button>
         </div>
@@ -25,16 +25,23 @@
             @if (currentMethods.length > 0) {
                 <mat-list>
                     @for (method of currentMethods; track method.id) {
-                        <mat-list-item>
-                            <mat-icon matListIcon class="text-primary">{{ method.icon }}</mat-icon>
-                            <div matListItemTitle>{{ method.name }}</div>
-                            <div matListItemLine>{{ method.details }}</div>
+
+                        <mat-list-item class="flex justify-between items-center w-full">
+                            <!-- Title and Details -->
+                            <div class="flex justify-between items-center w-full">
+                                <!-- Left: Name -->
+                                <div class="font-medium text-base">{{ method.name }}</div>
+
+                                <!-- Right: Delete Button -->
+                                <button mat-icon-button color="warn" (click)="removeMethod(method.id)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+
+                            <!-- Details below -->
+                            <div class="text-gray-500 text-sm w-full">{{ method.details }}</div>
+
                             <mat-divider></mat-divider>
-
-                            <button mat-icon-button color="warn" (click)="removeMethod(method.id)">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-
                         </mat-list-item>
                     }
                 </mat-list>

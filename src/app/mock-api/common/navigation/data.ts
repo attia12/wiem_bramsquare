@@ -21,21 +21,21 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Calendrier des paiements',
                 type: 'basic',
                 icon: 'heroicons_outline:calendar-days',
-                link: '/dashboards/analytics',
+                link: '/dashboard/payment',
             },
             {
                 id: 'dashboards.investissements',
                 title: 'Investissements',
                 type: 'basic',
                 icon: 'heroicons_mini:arrow-trending-up',
-                link: '/dashboards/finance',
+                link: '/dashboard/investissement',
             },
             {
                 id: 'dashboards.transactions',
                 title: 'Transactions',
                 type: 'basic',
                 icon: 'heroicons_outline:banknotes',
-                link: '/dashboards/crypto',
+                link: '/dashboard/transaction',
             },
         ],
     },
@@ -51,23 +51,23 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Coûts de Livraison',
                 type: 'basic',
                 icon: 'heroicons_outline:truck',
-                link: '/apps/academy',
+                link: '/dashboard/delivery-costs',
             },
             {
                 id: 'apps.contrôle_des_commissions',
                 title: 'Contrôle des Commissions',
                 type: 'basic',
                 icon: 'heroicons_outline:currency-dollar',
-                link: '/apps/chat',
+                link: '/dashboard/commissions',
             },
             {
                 id: 'apps.fiches_de_paie',
                 title: 'Fiches de paie',
                 type: 'basic',
                 icon: 'heroicons_outline:document-text',
-                link: '/apps/contacts',
+                link: '/dashboard/paylist',
             },
-      
+
         ],
     },
     {
@@ -105,13 +105,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'mat_solid:settings_suggest',
                 link: '/apps/contacts',
             }
-      
+
         ],
     },
 
- 
 
-   
+
+
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {

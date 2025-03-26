@@ -1,0 +1,99 @@
+<div class="p-6 bg-gray-50 w-full">
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Title and Period Selection -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+            <div>
+                <h1 class="text-2xl font-bold mb-1">Analyse des Coûts de Livraison</h1>
+                <p class="text-gray-500">Visualisez et analysez les coûts de livraison pour chaque restaurant</p>
+            </div>
+
+            <!-- Period Buttons -->
+            <div class="flex gap-2 mt-4 md:mt-0">
+                @for (period of ['week', 'month', 'year']; track period) {
+                    <button
+                        (click)="setPeriod(period)"
+                        class="px-4 py-2 rounded-lg border font-medium transition-all duration-150"
+                        [ngClass]="{
+              'bg-black text-white': isSelected(period),
+              'bg-white text-black': !isSelected(period)
+            }"
+                    >
+                        {{ period === 'week' ? 'Semaine' : period === 'month' ? 'Mois' : 'Année' }}
+                    </button>
+                }
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+
+            <!-- Bar Chart -->
+            <div class="bg-white rounded-lg p-6 shadow h-[500px] flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <mat-icon svgIcon="heroicons_outline:truck"></mat-icon>
+                        <h2 class="text-lg font-semibold">Coûts de Livraison par Restaurant</h2>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-4">
+                        Analyse des dépenses liées aux livraisons pour chaque restaurant partenaire
+                    </p>
+
+                    <apx-chart
+                        [series]="barChartOptions.series"
+                        [chart]="barChartOptions.chart"
+                        [xaxis]="barChartOptions.xaxis"
+                        [dataLabels]="barChartOptions.dataLabels"
+                        [plotOptions]="barChartOptions.plotOptions"
+                        [fill]="barChartOptions.fill"
+                        [title]="barChartOptions.title"
+                        class="w-full"
+                    ></apx-chart>
+                </div>
+
+                <div class="flex justify-between items-center mt-6 text-sm">
+                    <p>Total: <strong>{{ getTotal() }} €</strong></p>
+
+                    <div class="flex gap-2">
+                        <button class="flex items-center gap-1 px-3 py-1 border rounded shadow-sm hover:bg-gray-100">
+                            <mat-icon>filter_alt</mat-icon>
+                            Trier par coût
+                        </button>
+                        <button class="flex items-center gap-1 px-3 py-1 border rounded shadow-sm hover:bg-gray-100">
+                            <mat-icon>filter_alt</mat-icon>
+                            Trier par commandes
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pie Chart -->
+            <div class="bg-white rounded-lg p-6 shadow h-[500px]">
+                <h2 class="text-lg font-semibold mb-1">Répartition des Coûts</h2>
+                <p class="text-sm text-gray-500 mb-4">
+                    Pourcentage des coûts de livraison par restaurant
+                </p>
+
+                <apx-chart
+                    [series]="pieChartOptions.series"
+                    [chart]="pieChartOptions.chart"
+                    [labels]="pieChartOptions.labels"
+                    [legend]="pieChartOptions.legend"
+                    [responsive]="pieChartOptions.responsive"
+                    class="w-full"
+                ></apx-chart>
+            </div>
+
+        </div>
+        <div class="mt-10 bg-white p-6 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-1">Détails des Coûts de Livraison par Restaurant</h2>
+        <p class="text-sm text-gray-500 mb-4">Analyse complète des coûts avec indicateurs de performance</p>
+
+
+            <app-list-cout/>
+
+        </div>
+
+    </div>
+</div>
+

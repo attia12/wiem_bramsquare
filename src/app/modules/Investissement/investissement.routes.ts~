@@ -1,0 +1,11 @@
+import { Routes } from '@angular/router';
+import { InvestissementComponent } from './investissement.component';
+
+
+
+export default [
+    {
+        path: '',
+        component: InvestissementComponent,
+    },
+] as Routes;

@@ -1,0 +1,15 @@
+import { Component } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
+
+@Component({
+    selector: 'app-fraud-detection',
+    imports: [
+        MatIcon,
+    ],
+    templateUrl: './fraud-detection.component.html',
+    standalone: true,
+    styleUrl: './fraud-detection.component.scss',
+})
+export class FraudDetectionComponent {
+
+}

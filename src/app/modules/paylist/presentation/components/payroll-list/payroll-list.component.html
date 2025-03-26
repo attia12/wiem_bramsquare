@@ -1,0 +1,24 @@
+<div class="bg-white p-6 rounded-lg shadow h-full">
+    <h2 class="text-xl font-semibold mb-1">Documents disponibles</h2>
+    <p class="text-sm text-gray-500 mb-4">Sélectionnez une période pour voir les détails</p>
+
+    <div *ngFor="let doc of documents()"
+         (click)="selectDocument(doc)"
+         [ngClass]="{
+         'bg-gray-50': selectedMonth() === doc.month
+       }"
+         class="flex items-center justify-between px-4 py-3 cursor-pointer border-b hover:bg-gray-50 transition">
+
+        <div class="flex items-center gap-3">
+            <mat-icon class="text-blue-500">person</mat-icon>
+            <div>
+                <p class="font-medium">{{ doc.month }}</p>
+                <p class="text-sm text-gray-500">{{ doc.role }}</p>
+            </div>
+        </div>
+
+        <span class="text-xs px-2 py-1 rounded-full font-medium" [ngClass]="doc.color">
+      {{ doc.status }}
+    </span>
+    </div>
+</div>

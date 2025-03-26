@@ -5,6 +5,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { PaymentFormComponent } from '../payment-form/payment-form.component';
 import { DatePipe } from '@angular/common';
+import { Payment } from '../../../domain/model/payment';
+import { PaymentService } from '../../../domain/services/payment.service';
 
 @Component({
     selector: 'app-payment-calendar',
@@ -14,23 +16,25 @@ import { DatePipe } from '@angular/common';
     styleUrl: './payment-calendar.component.scss',
 })
 export class PaymentCalendarComponent {
+    protected readonly Date = Date;
     selectedDate: string = '';
-    selectedPayments: any[] = [];
+    selectedPayments:  Payment[] = [];
     showForm: boolean = false;
-    payments = [
-        { id:'1',title: 'Fournisseur Matériel', date: '2025-03-15', amount: '1250,75 €', status: 'En attente' },
-        { id:'2',title: 'Abonnement Cloud', date: '2025-03-18', amount: '299,99 €', status: 'En attente' }
-    ];
+    payments: Payment[] = [];
     calendarOptions: CalendarOptions = {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
         selectable: true,
         editable: false,
         dateClick: this.handleDateClick.bind(this),
-        events: this.payments.map(p => ({ title: p.title, start: p.date, color: '#4285F4' }))
+        events: [],
+        dayMaxEventRows: 3,
+        moreLinkText: "voir plus",
     };
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor(private cdr: ChangeDetectorRef,  private paymentService: PaymentService) {
+        this.loadAllPayments();
+    }
 
     handleDateClick(arg: any) {
         this.selectedDate = arg.dateStr; // Store selected date
@@ -38,7 +42,10 @@ export class PaymentCalendarComponent {
 
 
         // Filter payments based on clicked date
-        this.selectedPayments = this.payments.filter(p => p.date === this.selectedDate);
+        this.selectedPayments = this.payments.filter(p => {
+            const paymentDate = new Date(p.date).toISOString().split('T')[0];
+            return paymentDate === this.selectedDate;
+        });
         console.log("selected date",this.selectedPayments)
         this.cdr.detectChanges();
         if(this.showForm) {
@@ -54,5 +61,22 @@ export class PaymentCalendarComponent {
     }
 
 
-    protected readonly Date = Date;
+    private loadAllPayments() {
+        this.paymentService.data$.subscribe((payments: Payment[]) => {
+            this.payments = payments;
+
+            // Update calendar events
+            this.calendarOptions.events = this.payments.map(p => ({
+                title: p.beneficiary,
+                start: p.date,
+                color: '#4285F4'
+            }));
+
+            this.cdr.detectChanges();
+        });
+
+        // Trigger initial load if needed
+        this.paymentService.getData().subscribe();
+    }
+
 }

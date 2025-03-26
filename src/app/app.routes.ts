@@ -55,21 +55,7 @@ export const appRoutes: Route[] = [
             {path: 'unlock-session', loadChildren: () => import('app/modules/auth/unlock-session/unlock-session.routes')}
         ]
     },
-    // payment routes
-    // {
-    //     path: '',
-    //     component: LayoutComponent,
-    //     data: {
-    //         layout: 'classic'
-    //     },
-    //     resolve: {
-    //         initialData: initialDataResolver
-    //     },
-    //
-    //     children: [
-    //         {path: 'payment', loadChildren: () => import('app/modules/payment/payment.routes')},
-    //     ]
-    // },
+
     {
         path: '',
         component: LayoutComponent,
@@ -81,8 +67,14 @@ export const appRoutes: Route[] = [
         },
 
         children: [
-            {path: '', children: [
+            {path: 'dashboard', children: [
                     {path:'payment', loadChildren: () => import('app/modules/payment/payment.routes')},
+                    {path:'investissement', loadChildren: () => import('app/modules/Investissement/investissement.routes')},
+                    {path:'delivery-costs', loadChildren: () => import('app/modules/couts_de_livraison/delivery-costs.routes')},
+                    {path:'transaction', loadChildren: () => import('app/modules/transaction/transaction.routes')},
+                    {path:'commissions', loadChildren: () => import('app/modules/commission/commission.routes')},
+                    {path:'paylist', loadChildren: () => import('app/modules/paylist/paylist.routes')},
+
             ]},
         ]
     },

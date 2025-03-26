@@ -3,6 +3,8 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { MatList, MatListItem } from '@angular/material/list';
+import { MatDialog } from '@angular/material/dialog';
+import { AddPaymentMethodComponent } from '../add-payment-method/add-payment-method.component';
 
 
 @Component({
@@ -35,6 +37,7 @@ export class PaymentMethodsComponent {
             { icon: 'account_balance_wallet', name: 'Stripe Business', details: 'stripe@business.com' }
         ]
     };
+    constructor(public dialog: MatDialog) {}
 
     get currentMethods() {
         switch (this.selectedTab) {
@@ -45,14 +48,25 @@ export class PaymentMethodsComponent {
         }
     }
 
-    // Add new payment method (Placeholder function)
-    addPaymentMethod() {
-        console.log("Ajout d'une nouvelle méthode de paiement");
-    }
+
+
 
     // Remove a payment method
     removeMethod(index: number) {
         this.currentMethods.splice(index, 1);
     }
 
+    openAddPaymentModal() {
+        const dialogRef = this.dialog.open(AddPaymentMethodComponent, {
+            width: '450px',
+            disableClose: true,
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.currentMethods.push(result);
+            }
+        });
+
+    }
 }

@@ -1,0 +1,66 @@
+import { Component } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow, MatHeaderRowDef, MatRowDef,
+    MatTable,
+} from '@angular/material/table';
+import { DecimalPipe } from '@angular/common';
+import { Subject, takeUntil } from 'rxjs';
+import { InvestissementService } from '../../../../Investissement/domain/services/investissement.service';
+
+@Component({
+    selector: 'app-list-cout',
+    imports: [
+        MatIcon,
+        MatTable,
+        MatColumnDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderCellDef,
+        MatCellDef,
+        DecimalPipe,
+        MatHeaderRow,
+        MatRowDef,
+        MatHeaderRowDef,
+    ],
+    templateUrl: './list-cout.component.html',
+    standalone: true,
+    styleUrl: './list-cout.component.scss',
+})
+export class ListCoutComponent {
+    columns: string[] = ['name', 'totalCost', 'orders', 'avgTime', 'costPerOrder'];
+    data: any;
+    private _unsubscribeAll: Subject<any> = new Subject<any>();
+
+    constructor(
+        private _investissementService: InvestissementService,
+
+    )
+    {
+    }
+
+
+    ngOnInit(): void {
+        this._investissementService.data$
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((data) =>
+            {
+
+                this.data = data;
+                console.log(this.data)
+
+
+            });
+    }
+    ngOnDestroy(): void
+    {
+        // Unsubscribe from all subscriptions
+        this._unsubscribeAll.next(null);
+        this._unsubscribeAll.complete();
+    }
+}

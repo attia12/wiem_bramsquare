@@ -1,0 +1,11 @@
+import { Routes } from '@angular/router';
+import { DeliveryCostsComponent } from './delivery-costs/delivery-costs.component';
+
+
+
+export default [
+    {
+        path: '',
+        component: DeliveryCostsComponent,
+    },
+] as Routes;

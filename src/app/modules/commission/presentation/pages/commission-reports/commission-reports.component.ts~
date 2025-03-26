@@ -1,0 +1,17 @@
+import { Component } from '@angular/core';
+import {
+    PlanifierRapportFormComponent
+} from '../../components/planifier-rapport-form/planifier-rapport-form.component';
+
+@Component({
+    selector: 'app-commission-reports',
+    imports: [
+        PlanifierRapportFormComponent,
+    ],
+    templateUrl: './commission-reports.component.html',
+    standalone: true,
+    styleUrl: './commission-reports.component.scss',
+})
+export class CommissionReportsComponent {
+
+}

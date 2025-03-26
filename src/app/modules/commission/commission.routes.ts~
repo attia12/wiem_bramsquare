@@ -1,0 +1,12 @@
+import { Routes } from '@angular/router';
+import { CommissionComponent } from './commission/commission.component';
+
+
+
+
+export default [
+    {
+        path: '',
+        component: CommissionComponent,
+    },
+] as Routes;

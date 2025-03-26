@@ -1,0 +1,14 @@
+
+
+<div  *ngIf="loadingService.loading$ | async">
+
+    <mat-spinner
+        [diameter]="20"
+        strokeWidth="3"
+        color="warn"
+        class="h-4 w-4">
+    </mat-spinner>
+
+</div>
+
+

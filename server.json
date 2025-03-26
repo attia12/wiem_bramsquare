@@ -1,0 +1,221 @@
+{
+  "investissements": [
+    {
+      "id": 1,
+      "nom": "Groupe A",
+      "montant": 125000,
+      "type": "Investissement",
+      "roiAttendu": 15,
+      "roiActuel": 18.7,
+      "revenus": 23500,
+      "performance": "Au dessus"
+    },
+    {
+      "id": 2,
+      "nom": "Partenaire B",
+      "montant": 85000,
+      "type": "Investissement",
+      "roiAttendu": 15,
+      "roiActuel": 21.3,
+      "revenus": 18500,
+      "performance": "Au dessus"
+    },
+    {
+      "id": 3,
+      "nom": "Investisseur C",
+      "montant": 200000,
+      "type": "Investissement",
+      "roiAttendu": 15,
+      "roiActuel": 12.5,
+      "revenus": 25000,
+      "performance": "En dessous"
+    },
+    {
+      "id": 4,
+      "nom": "Groupe D",
+      "montant": 65000,
+      "type": "Subvention",
+      "roiAttendu": 15,
+      "roiActuel": 16.2,
+      "revenus": 10500,
+      "performance": "Au dessus"
+    },
+    {
+      "id": 5,
+      "nom": "Partenaire E",
+      "montant": 150000,
+      "type": "Investissement",
+      "roiAttendu": 15,
+      "roiActuel": 14.8,
+      "revenus": 22000,
+      "performance": "En dessous"
+    }
+  ],
+  "payments": [
+    {
+      "id": "00e8",
+      "amount": 10,
+      "date": "2025-03-06",
+      "method": "CARD",
+      "status": "COMPLETED",
+      "type": "SUBSCRIPTION",
+      "beneficiary": "mohamed yasssine",
+      "recurring": false
+    },
+    {
+      "id": "7ae3",
+      "amount": 10,
+      "date": "2025-03-06",
+      "method": "CARD",
+      "status": "COMPLETED",
+      "type": "SUBSCRIPTION",
+      "beneficiary": "mohamed yasssine",
+      "recurring": false
+    },
+    {
+      "id": "4a31",
+      "amount": 10,
+      "date": "2025-03-26",
+      "method": "CARD",
+      "status": "COMPLETED",
+      "type": "SUBSCRIPTION",
+      "beneficiary": "youssef",
+      "recurring": false
+    },
+    {
+      "id": "fcab",
+      "amount": 10,
+      "date": "2025-03-28",
+      "method": "CARD",
+      "status": "PENDING",
+      "type": "SUBSCRIPTION",
+      "beneficiary": "new one",
+      "recurring": false
+    },
+    {
+      "id": "7535",
+      "amount": 10,
+      "date": "2025-03-29",
+      "method": "CARD",
+      "status": "PENDING",
+      "type": "BILL",
+      "beneficiary": "ddddddddd",
+      "recurring": false
+    },
+    {
+      "id": "a2df",
+      "amount": 10,
+      "date": "2025-03-28",
+      "method": "CARD",
+      "status": "PENDING",
+      "type": "BILL",
+      "beneficiary": "dddddddd",
+      "recurring": false
+    },
+    {
+      "id": "31d5",
+      "amount": 10,
+      "date": "2025-03-28",
+      "method": "CARD",
+      "status": "COMPLETED",
+      "type": "SUBSCRIPTION",
+      "beneficiary": "string",
+      "recurring": true,
+      "recurrenceEndDate": "2025-03-29",
+      "recurrenceType": "MONTHLY"
+    },
+    {
+      "id": "9441",
+      "amount": 10,
+      "date": "2025-03-28",
+      "method": "CARD",
+      "status": "COMPLETED",
+      "type": "BILL",
+      "beneficiary": "lol",
+      "recurring": false
+    },
+    {
+      "id": "0c1d",
+      "amount": 10,
+      "date": "2025-03-28",
+      "method": "CARD",
+      "status": "COMPLETED",
+      "type": "SUBSCRIPTION",
+      "beneficiary": "lol",
+      "recurring": false
+    }
+  ],
+    "delivery":[
+        {
+            "name": "Chez Marcel",
+            "totalCost": 14.5,
+            "orders": 165,
+            "avgTime": 32,
+            "costPerOrder": 8.79
+        },
+        {
+            "name": "Brasserie du Marché",
+            "totalCost": 13.2,
+            "orders": 112,
+            "avgTime": 26,
+            "costPerOrder": 11.79
+        },
+        {
+            "name": "Le Bistrot Parisien",
+            "totalCost": 12.5,
+            "orders": 142,
+            "avgTime": 28,
+            "costPerOrder": 8.80
+        },
+        {
+            "name": "La Table d'Eugène",
+            "totalCost": 11,
+            "orders": 105,
+            "avgTime": 30,
+            "costPerOrder": 10.48
+        },
+        {
+            "name": "La Petite Cuisine",
+            "totalCost": 9.8,
+            "orders": 98,
+            "avgTime": 22,
+            "costPerOrder": 10
+        },
+        {
+            "name": "Le Gourmet",
+            "totalCost": 8.7,
+            "orders": 78,
+            "avgTime": 24,
+            "costPerOrder": 11.15
+        },
+        {
+            "name": "Le Café des Artistes",
+            "totalCost": 7.6,
+            "orders": 68,
+            "avgTime": 20,
+            "costPerOrder": 11.18
+        }
+    ],
+    "rapports": [
+        {
+            "title": "Rapport mensuel des commissions",
+            "description": "Synthèse mensuelle de toutes les commissions par partenaire",
+            "format": "PDF"
+        },
+        {
+            "title": "Rapport par catégorie",
+            "description": "Analyse détaillée des commissions par catégorie de restaurant",
+            "format": "PDF"
+        },
+        {
+            "title": "Données brutes des commissions",
+            "description": "Export complet des données de commission pour analyse",
+            "format": "CSV"
+        },
+        {
+            "title": "Rapport trimestriel",
+            "description": "Synthèse trimestrielle avec comparaison année précédente",
+            "format": "PDF"
+        }
+    ]
+}

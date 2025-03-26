@@ -1,0 +1,22 @@
+import { Component, signal } from '@angular/core';
+import { TransactionsListComponent } from '../presentation/components/transactions-list/transactions-list.component';
+import { FraudDetectionComponent } from '../presentation/components/fraud-detection/fraud-detection.component';
+import { Transaction } from '../domain/transaction.model';
+
+@Component({
+    selector: 'app-transaction',
+    imports: [
+        TransactionsListComponent,
+        FraudDetectionComponent,
+    ],
+    templateUrl: './transaction.component.html',
+    standalone: true,
+    styleUrl: './transaction.component.scss',
+})
+export class TransactionComponent {
+    selectedTransaction = signal<Transaction | null>(null);
+    onTransactionSelected(transaction: Transaction) {
+        this.selectedTransaction.set(transaction);
+    }
+
+}

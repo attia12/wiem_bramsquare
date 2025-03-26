@@ -1,0 +1,13 @@
+<div class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-xl font-bold mb-1">Rapports disponibles</h2>
+    <p class="text-gray-500 mb-4">Téléchargez des rapports détaillés sur les commissions</p>
+
+    <div class="space-y-4">
+        @for (item of data(); track item.id) {
+            <div>
+                <app-rapport-item [rapport]="item" />
+            </div>
+        }
+    </div>
+
+</div>

@@ -1,0 +1,58 @@
+<div class="bg-white p-6 shadow-xl rounded-lg w-full max-w-md">
+    <!-- Header -->
+    <div class="flex justify-between items-center">
+        <h2 class="text-lg font-semibold">Ajouter une méthode de paiement</h2>
+        <button class="text-gray-500 hover:text-gray-800" (click)="closeModal()">
+            ✖
+        </button>
+    </div>
+    <p class="text-gray-500 text-sm mt-1">Ajoutez une nouvelle méthode de paiement pour le traitement automatisé.</p>
+
+    <form [formGroup]="paymentForm" class="mt-4 space-y-4">
+        <!-- Numéro de carte -->
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Numéro de carte</label>
+            <input type="text" formControlName="cardNumber"
+                   class="mt-1 block w-full p-2 border border-gray-300 rounded-lg bg-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                   placeholder="1234 5678 9012 3456">
+        </div>
+
+        <!-- Nom sur la carte -->
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Nom sur la carte</label>
+            <input type="text" formControlName="cardName"
+                   class="mt-1 block w-full p-2 border border-gray-300 rounded-lg bg-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                   placeholder="Jean Dupont">
+        </div>
+
+        <!-- Date d'expiration et CVC -->
+        <div class="flex space-x-4">
+            <div class="w-1/2">
+                <label class="block text-sm font-medium text-gray-700">Date d'expiration</label>
+                <input type="text" formControlName="expiryDate"
+                       class="mt-1 block w-full p-2 border border-gray-300 rounded-lg bg-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                       placeholder="MM/AA">
+            </div>
+
+            <div class="w-1/2">
+                <label class="block text-sm font-medium text-gray-700">CVC</label>
+                <input type="text" formControlName="cvc"
+                       class="mt-1 block w-full p-2 border border-gray-300 rounded-lg bg-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                       placeholder="123">
+            </div>
+        </div>
+
+        <!-- Security Notice -->
+        <div class="flex items-center text-sm text-gray-500">
+            <span class="text-green-500 text-lg">✔</span>
+            <span class="ml-2">Vos informations de paiement sont sécurisées et chiffrées</span>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit"
+                class="w-full bg-black text-white py-2 rounded-lg mt-3 hover:bg-gray-800"
+                (click)="addPayment()">
+            Ajouter la carte
+        </button>
+    </form>
+</div>

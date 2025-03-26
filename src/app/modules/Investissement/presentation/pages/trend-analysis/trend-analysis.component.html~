@@ -1,0 +1,78 @@
+<div class="p-2 bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto">
+
+
+        <mat-button-toggle-group
+            class="flex gap-4 border border-gray-200 bg-white p-4 rounded-xl shadow-sm"
+            [value]="selectedTab()"
+            (change)="selectTab($event.value)"
+            appearance="legacy">
+
+            <mat-button-toggle class="rounded-xl px-4 py-1" value="finance">Tendances financières</mat-button-toggle>
+            <mat-button-toggle class="rounded-xl px-4 py-1" value="risks">Risques potentiels</mat-button-toggle>
+            <mat-button-toggle class="rounded-xl px-4 py-1" value="opportunities">Opportunités</mat-button-toggle>
+        </mat-button-toggle-group>
+
+
+        @switch (selectedTab()) {
+            @case ('finance') {
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-lg font-semibold mb-1">Analyse des tendances d'investissement</h2>
+                    <p class="text-sm text-gray-500 mb-4">Evolution sur les 12 derniers mois</p>
+
+                    <!-- Apex Chart -->
+                    <apx-chart
+                        [series]="chartSeries"
+                        [chart]="chartOptions.chart"
+                        [xaxis]="chartOptions.xaxis"
+                        [yaxis]="chartOptions.yaxis"
+                        [stroke]="chartOptions.stroke"
+
+                        [colors]="chartOptions.colors"
+                        [legend]="chartOptions.legend"
+                        [dataLabels]="chartOptions.dataLabels">
+                    </apx-chart>
+
+                    <!-- Insights Cards -->
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                        <div class="border rounded-xl p-4 bg-white">
+                            <div class="flex items-center font-medium text-sm text-green-600">
+                                <mat-icon class="mr-2 text-green-500">trending_up</mat-icon>
+                                Tendance des investissements
+                            </div>
+                            <p class="text-gray-600 text-sm mt-1">Croissance mensuelle moyenne de 1.5%, avec une forte accélération au dernier trimestre.</p>
+                        </div>
+
+                        <div class="border rounded-xl p-4 bg-white">
+                            <div class="flex items-center font-medium text-sm text-green-600">
+                                <mat-icon class="mr-2 text-green-500">trending_up</mat-icon>
+                                Performance des revenus
+                            </div>
+                            <p class="text-gray-600 text-sm mt-1">Les revenus suivent une tendance à la hausse, avec des variations saisonnières attendues.</p>
+                        </div>
+
+                        <div class="border rounded-xl p-4 bg-white">
+                            <div class="flex items-center font-medium text-sm text-yellow-600">
+                                <mat-icon class="mr-2 text-yellow-500">warning</mat-icon>
+                                Points d'attention
+                            </div>
+                            <p class="text-gray-600 text-sm mt-1">Surveiller les fluctuations du ROI, particulièrement pendant les périodes de changement saisonnier.</p>
+                        </div>
+                    </div>
+                </div>
+            }
+            @case ('risks') {
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-lg font-semibold mb-2">Risques potentiels</h2>
+                    <p class="text-gray-500 text-sm">En cours d'analyse des facteurs de risque financièrs et opérationnels...</p>
+                </div>
+            }
+            @case ('opportunities') {
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-lg font-semibold mb-2">Opportunités</h2>
+                    <p class="text-gray-500 text-sm">Exploration des nouvelles opportunités d'investissement à haut potentiel de croissance.</p>
+                </div>
+            }
+        }
+    </div>
+</div>

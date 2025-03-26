@@ -1,0 +1,86 @@
+import { Component } from '@angular/core';
+import { ChartComponent } from 'ng-apexcharts';
+
+@Component({
+    selector: 'app-dashboard',
+    imports: [
+        ChartComponent,
+    ],
+    templateUrl: './dashboard.component.html',
+    standalone: true,
+    styleUrl: './dashboard.component.scss',
+})
+export class DashboardComponent {
+    public chartOptions: Partial<ChartOptions>;
+
+    constructor() {
+        this.chartOptions = {
+            series: [
+                {
+                    name: 'Montant investi',
+                    type: 'column',
+                    data: [180000, 130000, 100000, 70000, 55000] // Example €
+                },
+                {
+                    name: 'Revenus générés',
+                    type: 'column',
+                    data: [25000, 22000, 24000, 17000, 10000] // Example €
+                },
+                {
+                    name: 'ROI actuel',
+                    type: 'line',
+                    data: [12, 15, 18, 20, 14] // In %
+                },
+                {
+                    name: 'ROI attendu',
+                    type: 'line',
+                    data: [15, 15, 15, 15, 15] // Constant target ROI
+                }
+            ],
+            chart: {
+                height: 350,
+                type: 'line',
+                stacked: false,
+                toolbar: { show: false }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                width: [0, 0, 2, 2],
+                curve: 'smooth'
+            },
+            xaxis: {
+                categories: ['Investisseur C', 'Partenaire E', 'Groupe A', 'Partenaire B', 'Groupe D']
+            },
+            yaxis: [
+                {
+                    title: {
+                        text: 'Montant (€)'
+                    }
+                },
+                {
+                    opposite: true,
+                    max: 30,
+                    title: {
+                        text: 'ROI (%)'
+                    }
+                }
+            ],
+            tooltip: {
+                shared: true,
+                intersect: false
+            },
+            grid: {
+                borderColor: '#e5e7eb'
+            },
+            markers: {
+                size: 5
+            },
+            legend: {
+                position: 'bottom'
+            }
+        };
+    }
+
+}

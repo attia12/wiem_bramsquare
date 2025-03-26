@@ -1,0 +1,49 @@
+<div class="bg-white p-6 rounded-lg shadow h-full">
+    @if (document()) {
+        <h2 class="text-xl font-semibold mb-2">Détails du document - </h2>
+        <p class="text-sm text-gray-500 mb-6">Référence: #001 – Émis le 31/01/2024</p>
+
+        <div class="grid grid-cols-2 gap-4 text-sm">
+            <div><strong>Date:</strong></div>
+            <div class="text-right text-gray-800">{{ details().date }}</div>
+
+            <div><strong>Statut:</strong></div>
+            <div class="text-right text-green-600">{{ details().status }}</div>
+
+            <div><strong>Poste:</strong></div>
+            <div class="text-right">{{ details().role }}</div>
+
+            <div><strong>Salaire de base:</strong></div>
+            <div class="text-right">{{ details().base | number:'1.2-2' }} €</div>
+
+            <div><strong>Primes:</strong></div>
+            <div class="text-right">{{ details().bonus | number:'1.2-2' }} €</div>
+
+            <div><strong>Taxes et cotisations:</strong></div>
+            <div class="text-right text-red-500">{{ details().tax | number:'1.2-2' }} €</div>
+        </div>
+
+        <hr class="my-4" />
+
+        <div class="flex justify-between text-lg font-semibold">
+            <span>Salaire net:</span>
+            <span class="text-black">{{ details().net | number:'1.2-2' }} €</span>
+        </div>
+
+        <div class="flex justify-end gap-2 mt-6">
+            <button class="flex items-center gap-1 border px-4 py-2 rounded hover:bg-gray-100">
+                <mat-icon>print</mat-icon> Imprimer
+            </button>
+            <button class="flex items-center gap-1 bg-black text-white px-4 py-2 rounded hover:bg-gray-800">
+                <mat-icon>download</mat-icon> Télécharger PDF
+            </button>
+        </div>
+    } @else {
+        <div class="flex items-center justify-center h-64 text-gray-500 border border-dashed rounded">
+            <div class="text-center">
+                <mat-icon class="text-3xl mb-2 text-gray-400">description</mat-icon>
+                <p class="text-sm">Sélectionnez un document pour afficher ses détails</p>
+            </div>
+        </div>
+    }
+</div>

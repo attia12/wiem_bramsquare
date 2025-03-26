@@ -1,0 +1,40 @@
+<div class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-xl font-bold mb-1">Planifier des rapports</h2>
+    <p class="text-gray-500 mb-4">Configurez l'envoi automatique de rapports</p>
+
+    <form class="space-y-4">
+        <div>
+            <label class="text-sm font-medium block mb-1">Type de rapport</label>
+            <select class="w-full border rounded px-3 py-2">
+                <option>Rapport mensuel</option>
+                <option>Rapport par catégorie</option>
+                <option>Rapport trimestriel</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="text-sm font-medium block mb-1">Fréquence</label>
+            <select class="w-full border rounded px-3 py-2">
+                <option>Mensuel</option>
+                <option>Trimestriel</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="text-sm font-medium block mb-1">Adresse e-mail</label>
+            <input type="email" placeholder="email@example.com" class="w-full border rounded px-3 py-2">
+        </div>
+
+        <div>
+            <label class="text-sm font-medium block mb-1">Format</label>
+            <select class="w-full border rounded px-3 py-2">
+                <option>PDF</option>
+                <option>CSV</option>
+            </select>
+        </div>
+
+        <button type="submit" class="w-full bg-black text-white py-3 rounded hover:opacity-90">
+            Planifier l'envoi automatique
+        </button>
+    </form>
+</div>

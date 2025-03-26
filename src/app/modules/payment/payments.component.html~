@@ -1,0 +1,16 @@
+
+<div class="p-6 bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Payment Calendar Component -->
+        <div class="bg-white p-6 shadow rounded-lg min-w-[320px] w-full">
+            <app-payment-calendar></app-payment-calendar>
+        </div>
+
+        <!-- Payment Methods Component (Now Placed Under the Calendar) -->
+        <div class="mt-6 bg-white p-6 shadow rounded-lg">
+            <app-payment-methods></app-payment-methods>
+        </div>
+    </div>
+</div>
+

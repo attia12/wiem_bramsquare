@@ -1,0 +1,10 @@
+<div class="flex items-center justify-between border p-4 rounded bg-white shadow-sm">
+    <div>
+        <p class="font-semibold">{{ rapport().title }}</p>
+        <p class="text-sm text-gray-500">{{ rapport().description }}</p>
+    </div>
+    <button class="px-4 py-2 border rounded-md flex items-center gap-1 text-sm"
+            (click)="onDownload()">
+        <mat-icon>download</mat-icon> {{ rapport().format }}
+    </button>
+</div>
