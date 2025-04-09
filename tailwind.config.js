@@ -104,7 +104,7 @@ const config = {
                 0: '0 0 auto',
             },
             fontFamily: {
-                sans: `"Inter var", ${defaultTheme.fontFamily.sans.join(',')}`,
+                sans: `"Montserrat", ${defaultTheme.fontFamily.sans.join(',')}`,
                 mono: `"IBM Plex Mono", ${defaultTheme.fontFamily.mono.join(',')}`,
             },
             opacity: {
@@ -199,7 +199,8 @@ const config = {
                             color: 'var(--fuse-text-secondary)',
                         },
                         a: {
-                            color: 'var(--fuse-primary-500)',
+                             color: 'var(--fuse-primary-500)',
+
                         },
                         strong: {
                             color: 'var(--fuse-text-default)',

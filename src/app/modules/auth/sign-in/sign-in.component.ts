@@ -20,7 +20,7 @@ import { AuthService } from 'app/core/auth/auth.service';
 import { Store } from '@ngrx/store';
 import { UserState } from '../../../../store/user/user.reducer';
 import { login } from '../../../../store/user/user.actions';
-import { selectUserState } from '../../../../store/user/user.selectors';
+import { selectIsAuthenticated, selectUserState } from '../../../../store/user/user.selectors';
 
 @Component({
     selector: 'auth-sign-in',
@@ -49,6 +49,7 @@ export class AuthSignInComponent implements OnInit {
     };
     signInForm: UntypedFormGroup;
     showAlert: boolean = false;
+    isAuthenticated$ = this._store.select(selectIsAuthenticated);
 
     /**
      * Constructor
@@ -78,6 +79,15 @@ export class AuthSignInComponent implements OnInit {
             password: ['admin', Validators.required],
             rememberMe: [''],
         });
+        this.subscribeToUserState();
+        this.isAuthenticated$.subscribe((isAuthenticated) => {
+            if (isAuthenticated) {
+                // If the user is authenticated, redirect them to the dashboard
+                this._router.navigateByUrl('/dashboard');
+            }
+        });
+
+
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -140,19 +150,24 @@ export class AuthSignInComponent implements OnInit {
         this.signInForm.disable();
         this.showAlert = false;
 
-        // Dispatch login action with the form values as LoginRequest
+        console.log("🚀 Dispatching login action:", this.signInForm.value);
         this._store.dispatch(login({ request: this.signInForm.value }));
+        setTimeout(() => {
+            this.signInForm.enable();
+        }, 1000);
 
-        // Subscribe to store state using typed selector
+
+    }
+
+    private subscribeToUserState() {
         this._store.select(selectUserState).subscribe((userState) => {
+            console.log("🔄 User State Updated:", userState);
+
             if (userState.token) {
-                // Successful login, navigate to redirect URL
-                const redirectURL =
-                    this._activatedRoute.snapshot.queryParamMap.get('redirectURL') ||
-                    '/signed-in-redirect';
-                this._router.navigateByUrl(redirectURL);
+                this._router.navigateByUrl('/dashboard');
+
             } else if (userState.token === null && userState.role === null) {
-                // Login failure, show alert
+                console.log("❌ Login failed: Showing error alert");
                 this.signInForm.enable();
                 this.signInNgForm.resetForm();
                 this.alert = {
@@ -160,8 +175,8 @@ export class AuthSignInComponent implements OnInit {
                     message: 'Wrong email or password',
                 };
                 this.showAlert = true;
+
             }
         });
     }
-
 }

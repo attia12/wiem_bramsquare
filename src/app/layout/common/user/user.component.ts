@@ -25,11 +25,11 @@ import { Subject, takeUntil } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'user',
     imports: [
-        MatButtonModule,
-        MatMenuModule,
-        MatIconModule,
-        NgClass,
-        MatDividerModule,
+        // MatButtonModule,
+        // MatMenuModule,
+        // MatIconModule,
+        // NgClass,
+        // MatDividerModule,
     ],
 })
 export class UserComponent implements OnInit, OnDestroy {

@@ -65,7 +65,7 @@ export class InvestorListComponent implements OnInit , OnDestroy{
             .subscribe((data) =>
             {
 
-                this.data = data;
+                this.data = data.content;
                 console.log(this.data)
 
 

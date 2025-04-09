@@ -10,7 +10,7 @@ import { LayoutComponent } from 'app/layout/layout.component';
 export const appRoutes: Route[] = [
 
     // Redirect empty path to '/dashboards/project'
-    {path: '', pathMatch : 'full', redirectTo: 'dashboards/project'},
+    {path: '', pathMatch : 'full', redirectTo: 'dashboard'},
 
     // Redirect signed-in user to the '/dashboards/project'
     //
@@ -20,7 +20,7 @@ export const appRoutes: Route[] = [
     {
         path: 'signed-in-redirect',
         pathMatch : 'full',
-        redirectTo: 'dashboards/project'
+        redirectTo: 'dashboard'
     },
 
     // Auth routes for guests
@@ -58,6 +58,8 @@ export const appRoutes: Route[] = [
 
     {
         path: '',
+        // canActivate: [AuthGuard],
+        // canActivateChild: [AuthGuard],
         component: LayoutComponent,
         data: {
             layout: 'classic'
@@ -84,8 +86,7 @@ export const appRoutes: Route[] = [
     // Admin routes
     {
         path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
+
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver

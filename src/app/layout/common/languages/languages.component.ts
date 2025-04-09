@@ -48,6 +48,7 @@ export class LanguagesComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         // Get the available languages from transloco
         this.availableLangs = this._translocoService.getAvailableLangs();
+        console.log("available luanguages",this.availableLangs)
 
         // Subscribe to language changes
         this._translocoService.langChanges$.subscribe((activeLang) => {
@@ -61,7 +62,7 @@ export class LanguagesComponent implements OnInit, OnDestroy {
         // Set the country iso codes for languages for flags
         this.flagCodes = {
             en: 'us',
-            tr: 'tr',
+            fr: 'fr',
         };
     }
 
@@ -128,12 +129,12 @@ export class LanguagesComponent implements OnInit, OnDestroy {
 
         // Get the Project dashboard item and update its title
         const projectDashboardItem = this._fuseNavigationService.getItem(
-            'dashboards.project',
+            'dashboards.dashboard',
             navigation
         );
         if (projectDashboardItem) {
             this._translocoService
-                .selectTranslate('Project')
+                .selectTranslate('Dashboard')
                 .pipe(take(1))
                 .subscribe((translation) => {
                     // Set the title
@@ -146,12 +147,12 @@ export class LanguagesComponent implements OnInit, OnDestroy {
 
         // Get the Analytics dashboard item and update its title
         const analyticsDashboardItem = this._fuseNavigationService.getItem(
-            'dashboards.analytics',
+            'dashboards.calendrier_des_paiements',
             navigation
         );
         if (analyticsDashboardItem) {
             this._translocoService
-                .selectTranslate('Analytics')
+                .selectTranslate('PaymentCalendar')
                 .pipe(take(1))
                 .subscribe((translation) => {
                     // Set the title
@@ -161,5 +162,95 @@ export class LanguagesComponent implements OnInit, OnDestroy {
                     navComponent.refresh();
                 });
         }
+
+        // Get the Analytics dashboard item and update its title
+        const InvestmentsItem = this._fuseNavigationService.getItem(
+            'dashboards.investissements',
+            navigation
+        );
+        if (InvestmentsItem) {
+            this._translocoService
+                .selectTranslate('Investments')
+                .pipe(take(1))
+                .subscribe((translation) => {
+                    // Set the title
+                    InvestmentsItem.title = translation;
+
+                    // Refresh the navigation component
+                    navComponent.refresh();
+                });
+        }
+        /////////////
+        const TransactionsItem = this._fuseNavigationService.getItem(
+            'dashboards.transactions',
+            navigation
+        );
+        if (TransactionsItem) {
+            this._translocoService
+                .selectTranslate('Transactions')
+                .pipe(take(1))
+                .subscribe((translation) => {
+                    // Set the title
+                    TransactionsItem.title = translation;
+
+                    // Refresh the navigation component
+                    navComponent.refresh();
+                });
+        }
+        //////////////////////////////////
+        const DeliveryCostsItem = this._fuseNavigationService.getItem(
+            'coûts_de_livraison',
+            navigation
+        );
+        if (DeliveryCostsItem) {
+            this._translocoService
+                .selectTranslate('DeliveryCosts')
+                .pipe(take(1))
+                .subscribe((translation) => {
+                    // Set the title
+                    DeliveryCostsItem.title = translation;
+
+                    // Refresh the navigation component
+                    navComponent.refresh();
+                });
+        }
+
+
+        // Get the Analytics dashboard item and update its title
+        const CommissionsItem = this._fuseNavigationService.getItem(
+            'apps.contrôle_des_commissions',
+            navigation
+        );
+        if (CommissionsItem) {
+            this._translocoService
+                .selectTranslate('Commissions')
+                .pipe(take(1))
+                .subscribe((translation) => {
+                    // Set the title
+                    CommissionsItem.title = translation;
+
+                    // Refresh the navigation component
+                    navComponent.refresh();
+                });
+        }
+        const PayslipsItem = this._fuseNavigationService.getItem(
+            'apps.fiches_de_paie',
+            navigation
+        );
+        if (PayslipsItem) {
+            this._translocoService
+                .selectTranslate('Payslips')
+                .pipe(take(1))
+                .subscribe((translation) => {
+                    // Set the title
+                    PayslipsItem.title = translation;
+
+                    // Refresh the navigation component
+                    navComponent.refresh();
+                });
+        }
+
     }
+
+
 }

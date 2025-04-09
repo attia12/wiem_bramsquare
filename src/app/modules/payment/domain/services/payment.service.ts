@@ -22,7 +22,7 @@ export class PaymentService {
     }
     getData(): Observable<any>
     {
-        return this._httpClient.get(`${environment.apiUrl}payments`).pipe(
+        return this._httpClient.get(`${environment.apiUrl}payments/get-all-payments`).pipe(
             tap((response: any) =>
             {
                 this._data.next(response);
@@ -32,9 +32,20 @@ export class PaymentService {
     savePayment(newPayment: Payment): Observable<Payment> {
         const payments = this._data.getValue();
 
-        const save$ = this._httpClient.post<Payment>(`${environment.apiUrl}payments`, newPayment).pipe(
-            tap(saved => {
-                const updatedPayments = [...payments, saved];
+        const save$ = this._httpClient.post<Payment>(`${environment.apiUrl}payments/add-payment`, newPayment).pipe(
+            tap((saved:any) => {
+                const newPaymentCalendar = saved.payments[0]; // Assuming the first PaymentCalendar is the one you want
+
+
+                const updatedPayments = [
+                    ...payments.filter(existingPayment =>
+                        !newPaymentCalendar.payments.some(newPayment => newPayment.id === existingPayment.id)
+                    ),
+                    ...newPaymentCalendar.payments
+                ];
+
+                // const updatedPayments = [...payments, ...saved.payments];
+                console.log("-------------------",updatedPayments);
                 this._data.next(updatedPayments);
             }),
             catchError(err => {

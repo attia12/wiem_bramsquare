@@ -19,7 +19,7 @@ export class InvestissementService {
     }
     getData(): Observable<any>
     {
-        return this._httpClient.get(`${environment.apiUrl}investissements`).pipe(
+        return this._httpClient.get(`${environment.apiUrl}investments/get-all-investments`).pipe(
             tap((response: any) =>
             {
                 this._data.next(response);

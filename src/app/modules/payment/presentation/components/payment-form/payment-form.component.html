@@ -53,7 +53,7 @@
     >
         <option value="" disabled selected>Choisir un type</option>
         <option value="BILL">Facture</option>
-        <option value="SUBSCRIPTION">Abonnement</option>
+        <option value="SALARY">Salaire</option>
     </select>
     @if (errors.type) {
         <p class="text-sm text-red-500 mb-2">Veuillez choisir un type.</p>
@@ -68,7 +68,9 @@
     >
         <option value="" disabled selected>Choisir un statut</option>
         <option value="PENDING">En attente</option>
-        <option value="COMPLETED">Paiement effectué</option>
+        <option value="PAID">Payé</option>
+        <option value="CANCELED">Annulé</option>
+        <option value="PROCESSING">En cours de traitement</option>
     </select>
     @if (errors.status) {
         <p class="text-sm text-red-500 mb-2">Veuillez choisir un statut.</p>

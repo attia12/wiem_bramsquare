@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
     ApplicationConfig,
     inject,
@@ -22,11 +22,12 @@ import { userReducer } from '../store/user/user.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { UserEffects } from '../store/user/user.effects';
+import { authInterceptor } from '../common/helpers/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimations(),
-        provideHttpClient(),
+        provideHttpClient(withInterceptors([authInterceptor])),
         provideRouter(
             appRoutes,
             withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
@@ -61,12 +62,12 @@ export const appConfig: ApplicationConfig = {
                         label: 'English',
                     },
                     {
-                        id: 'tr',
-                        label: 'Turkish',
+                        id: 'fr',
+                        label: 'French',
                     },
                 ],
-                defaultLang: 'en',
-                fallbackLang: 'en',
+                defaultLang: 'fr',
+                fallbackLang: 'fr',
                 reRenderOnLangChange: true,
                 prodMode: !isDevMode(),
             },

@@ -10,8 +10,10 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:home',
         children: [
             {
-                id: 'dashboards.tableau_de_bord',
-                title: 'Tableau de bord',
+                id: 'dashboards.dashboard',
+                //title: 'Tableau de bord',
+                title: 'DASHBOARDS',
+
                 type: 'basic',
                 icon: 'heroicons_outline:home',
                 link: '/dashboards/project',

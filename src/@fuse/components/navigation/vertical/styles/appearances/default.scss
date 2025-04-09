@@ -227,6 +227,7 @@ fuse-vertical-navigation {
                 text-decoration: none;
                 border-radius: 6px;
 
+
                 /* Disabled state */
                 &.fuse-vertical-navigation-item-disabled {
                     cursor: default;
@@ -452,7 +453,8 @@ fuse-vertical-navigation-collapsable-item,
 fuse-vertical-navigation-group-item {
     .fuse-vertical-navigation-item-wrapper {
         .fuse-vertical-navigation-item {
-            color: currentColor;
+            //color: currentColor;
+            color: #441406;
 
             .fuse-vertical-navigation-item-icon {
                 @apply text-current opacity-60;
@@ -551,7 +553,13 @@ fuse-vertical-navigation-group-item {
         .fuse-vertical-navigation-item {
             .fuse-vertical-navigation-item-title-wrapper {
                 .fuse-vertical-navigation-item-title {
-                    @apply text-primary-600 opacity-100 dark:text-primary-400;
+                    //@apply text-primary-600 opacity-100 dark:text-primary-400;
+                   // @apply text-orange-400 opacity-100 dark:text-orange-500;
+                    @apply text-orange-600 opacity-100 dark:text-orange-400;
+
+
+
+
                 }
             }
         }

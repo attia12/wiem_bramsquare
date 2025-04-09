@@ -25,6 +25,7 @@
         "@angular/platform-browser": "19.0.5",
         "@angular/platform-browser-dynamic": "19.0.5",
         "@angular/router": "19.0.5",
+        "@auth0/angular-jwt": "^5.2.0",
         "@fullcalendar/angular": "^6.1.16",
         "@fullcalendar/core": "^6.1.15",
         "@fullcalendar/daygrid": "^6.1.15",
