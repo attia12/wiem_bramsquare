@@ -3,7 +3,9 @@
 
 <!-- Navigation -->
 <fuse-vertical-navigation
-    class="dark bg-gray-200 print:hidden"
+
+    class=" print:hidden"
+     style="background-color: #EDEDFD;"
     [mode]="isScreenSmall ? 'over' : 'side'"
     [name]="'mainNavigation'"
     [navigation]="navigation.default"
@@ -11,16 +13,16 @@
     <!-- Navigation header hook -->
     <ng-container fuseVerticalNavigationContentHeader>
         <!-- Logo -->
-        <div class="flex items-center h-20 p-6 pb-0">
+        <div class="flex items-center justify-center h-20 p-6 pb-0">
             <!-- Light version -->
             <img
-                class="dark:hidden w-30"
-                src="/images/logo/logo-text.svg"
+                class="dark:hidden w-40"
+                src="/logo_legy_2.svg"
                 alt="Logo image">
             <!-- Dark version -->
             <img
-                class="hidden dark:flex w-30"
-                src="/images/logo/logo-text-on-dark.svg"
+                class="hidden dark:flex w-40"
+                src="/logo_legy_2.svg"
                 alt="Logo image">
         </div>
     </ng-container>

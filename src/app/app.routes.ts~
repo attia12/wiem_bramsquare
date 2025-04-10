@@ -58,8 +58,8 @@ export const appRoutes: Route[] = [
 
     {
         path: '',
-         canActivate: [AuthGuard],
-         canActivateChild: [AuthGuard],
+        // canActivate: [AuthGuard],
+        // canActivateChild: [AuthGuard],
         component: LayoutComponent,
         data: {
             layout: 'classic'
@@ -78,6 +78,8 @@ export const appRoutes: Route[] = [
                     {path:'paylist', loadChildren: () => import('app/modules/paylist/paylist.routes')},
 
             ]},
+            {path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.routes')},
+            {path: '**', redirectTo: '404-not-found'}
         ]
     },
 
@@ -114,10 +116,10 @@ export const appRoutes: Route[] = [
 
 
                 // Error
-                {path: 'error', children: [
-                    {path: '404', loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.routes')},
-                    {path: '500', loadChildren: () => import('app/modules/admin/pages/error/error-500/error-500.routes')}
-                ]},
+                // {path: 'error', children: [
+                //     {path: '404', loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.routes')},
+                //     {path: '500', loadChildren: () => import('app/modules/admin/pages/error/error-500/error-500.routes')}
+                // ]},
 
 
 
@@ -131,8 +133,8 @@ export const appRoutes: Route[] = [
 
 
             // 404 & Catch all
-            {path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.routes')},
-            {path: '**', redirectTo: '404-not-found'}
+            // {path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.routes')},
+            // {path: '**', redirectTo: '404-not-found'}
         ]
     }
 ];

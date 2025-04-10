@@ -330,7 +330,10 @@ const theming = plugin.withOptions(
                         background: {
                             light: {
                                 'bg-app-bar': '#FFFFFF',
-                                'bg-card': '#e2e8f0',
+                                // navbar color yassine
+                                // 'bg-card': '#e2e8f0',
+                                'bg-card': '#efefff',
+
                                 'bg-default': colors.slate[100],
                                 'bg-dialog': '#FFFFFF',
                                 'bg-hover': chroma(colors.slate[400])

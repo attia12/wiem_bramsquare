@@ -29,7 +29,7 @@
 <!--        >-->
         <div
             class="flex shrink-0 items-center  py-4 pl-6 pr-4 text-on-primary"
-            style="background-color: #5CAC0E;"
+            style="background-color: rgba(216, 90, 11, 1);"
         >
             <div class="-ml-1 mr-3 sm:hidden">
                 <button mat-icon-button (click)="closePanel()">

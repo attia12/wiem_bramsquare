@@ -1,4 +1,4 @@
-import { Component, computed, effect, input } from '@angular/core';
+import { Component, computed, effect, input, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { DecimalPipe } from '@angular/common';
 
@@ -12,7 +12,7 @@ import { DecimalPipe } from '@angular/common';
     standalone: true,
     styleUrl: './payroll-detail.component.scss',
 })
-export class PayrollDetailComponent {
+export class PayrollDetailComponent implements OnInit{
     readonly document = input<any | null>();
 
     // Reactive computed details
@@ -36,6 +36,9 @@ export class PayrollDetailComponent {
         effect(() => {
             console.log('Document changed:', this.document());
         });
+    }
+
+    ngOnInit(): void {
     }
 
 }

@@ -20,6 +20,7 @@ export class PaylistComponent {
 
     setSelectedPeriod(value: any) {
         this.selectedPeriod.set(value);
+        console.log("------------------",value);
     }
 
 

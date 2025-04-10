@@ -18,10 +18,10 @@ import { MatIcon } from '@angular/material/icon';
 export class PayrollListComponent {
     selectedPeriod = input<string | null>();
 
-    // 🔽 Signal-based Output
+
     selected = output<any>();
 
-    // 🔽 Static document data
+
     documents = signal([
         {
             month: 'Janvier 2024',
@@ -49,12 +49,13 @@ export class PayrollListComponent {
         }
     ]);
 
-    // 🔽 Internal signal to manage selection
+
     selectedMonth = signal<string | null>(null);
 
     selectDocument(doc: any) {
         this.selectedMonth.set(doc.month);
         this.selected.emit(doc); // Emit via signal output
+        console.log("this is the emmited doc",doc)
     }
 
 }
