@@ -1,0 +1,8 @@
+.custom-tab-group .mat-mdc-tab-header {
+    --mdc-tab-indicator-color: #FF680D;
+}
+
+.custom-tab-group .mat-mdc-tab-label-active {
+    color: #FF680D !important;
+    font-weight: 600;
+}

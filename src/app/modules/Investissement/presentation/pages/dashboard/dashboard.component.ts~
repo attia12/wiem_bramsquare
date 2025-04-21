@@ -1,6 +1,20 @@
 import { Component } from '@angular/core';
 import { ChartComponent } from 'ng-apexcharts';
-
+export type ChartOptions = {
+    series: ApexAxisChartSeries;
+    chart: ApexChart;
+    xaxis: ApexXAxis;
+    yaxis: ApexYAxis | ApexYAxis[];
+    dataLabels: ApexDataLabels;
+    stroke: ApexStroke;
+    tooltip: ApexTooltip;
+    markers: ApexMarkers;
+    grid: ApexGrid;
+    title?: ApexTitleSubtitle;
+    legend?: ApexLegend;
+    colors?: string[];       
+    fill?: ApexFill;
+};
 @Component({
     selector: 'app-dashboard',
     imports: [
@@ -43,6 +57,8 @@ export class DashboardComponent {
                 stacked: false,
                 toolbar: { show: false }
             },
+            colors: ['#FF680D', '#5CAC0E', '#facc15', '#ef4444'],
+
             dataLabels: {
                 enabled: false
             },

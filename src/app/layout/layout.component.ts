@@ -22,6 +22,8 @@ import { CompactLayoutComponent } from './layouts/vertical/compact/compact.compo
 import { DenseLayoutComponent } from './layouts/vertical/dense/dense.component';
 import { FuturisticLayoutComponent } from './layouts/vertical/futuristic/futuristic.component';
 import { ThinLayoutComponent } from './layouts/vertical/thin/thin.component';
+import { WebsocketService } from '../../common/services/websocket.service';
+
 
 @Component({
     selector: 'layout',
@@ -30,14 +32,14 @@ import { ThinLayoutComponent } from './layouts/vertical/thin/thin.component';
     encapsulation: ViewEncapsulation.None,
     imports: [
         EmptyLayoutComponent,
-      
+
         ClassicLayoutComponent,
         ClassyLayoutComponent,
         CompactLayoutComponent,
         DenseLayoutComponent,
         FuturisticLayoutComponent,
         ThinLayoutComponent,
-       
+
     ],
 })
 export class LayoutComponent implements OnInit, OnDestroy {
@@ -46,6 +48,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     scheme: 'dark' | 'light';
     theme: string;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+
 
     /**
      * Constructor
@@ -57,7 +60,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
         private _router: Router,
         private _fuseConfigService: FuseConfigService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
-        private _fusePlatformService: FusePlatformService
+        private _fusePlatformService: FusePlatformService,
+        private websocketService: WebsocketService
     ) {}
 
     // -----------------------------------------------------------------------------------------------------
@@ -68,6 +72,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
+        this.websocketService.connect();
+
         // Set the theme and scheme based on the configuration
         combineLatest([
             this._fuseConfigService.config$,
@@ -241,4 +247,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         // Add class name for the currently selected theme
         this._document.body.classList.add(this.theme);
     }
+
+
+
 }

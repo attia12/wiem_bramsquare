@@ -1,0 +1,76 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto bg-white shadow-lg rounded-xl p-6">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h2 class="text-3xl font-bold text-[#441406]">Types d’investissement</h2>
+                <p class="text-lg text-[#5CAC0E]">Définitions des types d’investissement et leurs champs personnalisés</p>
+            </div>
+            <button
+                (click)="openModalAddType()"
+                class="flex items-center bg-[#FF680D] gap-2 px-6 py-3 border rounded-lg text-sm font-medium text-white hover:bg-[#e15a00] transition duration-300 ease-in-out"
+            >
+                <mat-icon fontIcon="add" class="text-lg text-white"></mat-icon>
+                Nouveau Type
+            </button>
+        </div>
+
+        <!-- Table -->
+        @if (investmentTypes().length > 0) {
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-100">
+                    <tr class="text-left text-sm font-medium text-gray-700">
+                        <th class="py-3 px-4">Type</th>
+                        <th class="py-3 px-4">Description</th>
+                        <th class="py-3 px-4">Champs</th>
+                        <th class="py-3 px-4">Formules</th>
+                        <th class="py-3 px-4">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 text-sm text-gray-700">
+                        @for (item of investmentTypes(); track item.id) {
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-3 px-4 font-semibold">{{ item.name }}</td>
+                                <td class="py-3 px-4">{{ item.processorClassName }}</td>
+                                <td class="py-3 px-4">
+                                    <ul class="list-disc list-inside space-y-2">
+                                        @for (key of Object.keys(item.fields); track key) {
+                                            <li class="flex justify-between">
+                                                <strong>{{ key }}:</strong>
+                                                <span>{{ item.fields[key].label }} ({{ item.fields[key].type }})
+                                                    <span *ngIf="item.fields[key].required" class="text-xs text-red-600 font-semibold">[requis]</span>
+                                                </span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <ul class="list-disc list-inside space-y-2">
+                                        @for (formulaKey of Object.keys(item.derivedFieldFormulas); track formulaKey) {
+                                            <li class="flex justify-between">
+                                                <strong>{{ formulaKey }}:</strong>
+                                                <span>{{ item.derivedFieldFormulas[formulaKey] }}</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <button
+                                        (click)="onConfigure(item.name)"
+                                        class="flex items-center gap-1 text-indigo-600 hover:underline"
+                                    >
+                                        <mat-icon fontIcon="settings" class="text-sm"></mat-icon>
+                                        Configurer
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        } @else {
+            <p class="text-sm text-gray-400 mt-6">Aucun type d’investissement trouvé.</p>
+        }
+    </div>
+</div>

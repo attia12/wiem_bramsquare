@@ -19,6 +19,10 @@ import { RouterLink } from '@angular/router';
 import { NotificationsService } from 'app/layout/common/notifications/notifications.service';
 import { Notification } from 'app/layout/common/notifications/notifications.types';
 import { Subject, takeUntil } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import {
+    NotificationSettingsModalComponent
+} from './notification-settings-modal/notification-settings-modal.component';
 
 @Component({
     selector: 'notifications',
@@ -53,7 +57,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         private _changeDetectorRef: ChangeDetectorRef,
         private _notificationsService: NotificationsService,
         private _overlay: Overlay,
-        private _viewContainerRef: ViewContainerRef
+        private _viewContainerRef: ViewContainerRef,
+        private dialog: MatDialog
     ) {}
 
     // -----------------------------------------------------------------------------------------------------
@@ -232,5 +237,17 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         }
 
         this.unreadCount = count;
+    }
+
+    openSettings() {
+        this.dialog.open(NotificationSettingsModalComponent, {
+            width: '500px',
+            disableClose: false,
+        }).afterClosed().subscribe(result => {
+            if (result) {
+                console.log('Saved settings:', result);
+                // You can persist settings here
+            }
+        });
     }
 }

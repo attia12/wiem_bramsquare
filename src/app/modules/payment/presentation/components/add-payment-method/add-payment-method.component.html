@@ -1,9 +1,9 @@
-<div class="bg-white p-6 shadow-xl rounded-lg w-full max-w-md">
+<div class="p-6 shadow-xl rounded-lg w-full max-w-md" style="background-color: #efefff;">
     <!-- Header -->
     <div class="flex justify-between items-center">
-        <h2 class="text-lg font-semibold">Ajouter une méthode de paiement</h2>
+        <h2 class="text-lg font-semibold"  style="color: #441406;">Ajouter une méthode de paiement</h2>
         <button mat-icon-button (click)="closeModal()">
-            <mat-icon svgIcon="heroicons_outline:x-mark"></mat-icon>
+            <mat-icon style="color: #441406;" svgIcon="heroicons_outline:x-mark"></mat-icon>
         </button>
     </div>
     <p class="text-gray-500 text-sm mt-1">Ajoutez une nouvelle méthode de paiement pour le traitement automatisé.</p>
@@ -50,7 +50,8 @@
 
         <!-- Submit Button -->
         <button type="submit"
-                class="w-full bg-black text-white py-2 rounded-lg mt-3 hover:bg-gray-800"
+                class="w-full text-white py-2 rounded-lg mt-3 hover:opacity-90"
+                style="background-color: #FF680D;"
                 (click)="addPayment()">
             Ajouter la carte
         </button>

@@ -65,6 +65,7 @@ export class FuseHorizontalNavigationBranchItemComponent
         // Get the parent navigation component
         this._fuseHorizontalNavigationComponent =
             this._fuseNavigationService.getComponent(this.name);
+        console.log("componetns loaded in navigation",this._fuseHorizontalNavigationComponent);
 
         // Subscribe to onRefreshed on the navigation component
         this._fuseHorizontalNavigationComponent.onRefreshed

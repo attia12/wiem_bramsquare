@@ -22,13 +22,13 @@ export const loginFailure = createAction(
 );
 
 
-// export const logout = createAction(
-//     '[Auth] Logout',
-//     props<{ refreshToken: string }>() // Ensure refreshToken is passed
-// );
+
 export const logout = createAction('[Auth] Logout');
+export const logoutApi = createAction('[Auth] Logout API');
 export const logoutSuccess = createAction('[Auth] Logout Success');
 export const logoutFailure = createAction(
     '[Auth] Logout Failure',
     props<{ error: string }>()
 );
+export const logoutApiSuccess = createAction('[Auth] Logout API Success');
+export const logoutApiFailure = createAction('[Auth] Logout API Failure', props<{ error: string }>());

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 
 import { MatButton } from '@angular/material/button';
 import { InvestmentCardComponent } from './presentation/components/investment-card/investment-card.component';
@@ -8,6 +8,11 @@ import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-
 import { DashboardComponent } from './presentation/pages/dashboard/dashboard.component';
 import { InvestorListComponent } from './presentation/pages/investor-list/investor-list.component';
 import { TrendAnalysisComponent } from './presentation/pages/trend-analysis/trend-analysis.component';
+import { MatDialog } from '@angular/material/dialog';
+import {
+    AddInvestmentFormComponent
+} from './presentation/components/add-investment-form/add-investment-form.component';
+import { TypeInvestissementComponent } from './presentation/pages/type-investissement/type-investissement.component';
 
 @Component({
     selector: 'app-investissement',
@@ -20,6 +25,7 @@ import { TrendAnalysisComponent } from './presentation/pages/trend-analysis/tren
         DashboardComponent,
         InvestorListComponent,
         TrendAnalysisComponent,
+        TypeInvestissementComponent,
 
 
     ],
@@ -29,6 +35,7 @@ import { TrendAnalysisComponent } from './presentation/pages/trend-analysis/tren
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvestissementComponent {
+     dialog=inject(MatDialog) ;
     cards = signal([
         {
             label: 'Investissement Total',
@@ -59,8 +66,23 @@ export class InvestissementComponent {
             trendColor: 'text-green-500'
         }
     ]);
-    selectedTab = signal<'dashboard' | 'investors' | 'trends' | 'recommendations'>('dashboard');
-    selectTab(tab: 'dashboard' | 'investors' | 'trends' | 'recommendations') {
+    selectedTab = signal<'dashboard' | 'investors' | 'trends' | 'recommendations' | 'type_investissement'>('dashboard');
+    selectTab(tab: 'dashboard' | 'investors' | 'trends' | 'recommendations'|'type_investissement') {
         this.selectedTab.set(tab);
+    }
+
+    openAddInvestment() {
+        const dialogRef = this.dialog.open(AddInvestmentFormComponent, {
+            width: '500px',
+
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                console.log('Investissement ajouté :', result);
+
+            }
+        });
+
     }
 }

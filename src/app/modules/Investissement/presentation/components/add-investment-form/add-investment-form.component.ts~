@@ -1,0 +1,42 @@
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
+import { MatDialogRef } from '@angular/material/dialog';
+
+@Component({
+    selector: 'app-add-investment-form',
+    imports: [
+        ReactiveFormsModule,
+        MatIcon,
+    ],
+    templateUrl: './add-investment-form.component.html',
+    standalone: true,
+    styleUrl: './add-investment-form.component.scss',
+})
+export class AddInvestmentFormComponent {
+    investmentForm: FormGroup;
+    constructor( private dialogRef: MatDialogRef<AddInvestmentComponent>) {
+    }
+
+    constructor(private fb: FormBuilder) {
+        this.investmentForm = this.fb.group({
+            investorName: ['', Validators.required],
+            investmentType: ['', Validators.required],
+        });
+    }
+
+    onSubmit(): void {
+        if (this.form.valid) {
+            console.log(this.form.value);
+            this.dialogRef.close(this.form.value);
+        } else {
+            this.form.markAllAsTouched();
+        }
+    }
+
+    close(): void {
+        this.dialogRef.close();
+
+    }
+
+}

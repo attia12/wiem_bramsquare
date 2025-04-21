@@ -60,6 +60,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
                                     // If refresh token also fails, log out user
                                     if (refreshError.status === 401 || refreshError.status === 403) {
                                         _store.dispatch(logout());
+                                        return of();
                                     }
 
                                     return of(refreshError);

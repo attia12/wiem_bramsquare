@@ -15,15 +15,17 @@ import { NotificationsComponent } from 'app/layout/common/notifications/notifica
 
 import { SearchComponent } from 'app/layout/common/search/search.component';
 import { ShortcutsComponent } from 'app/layout/common/shortcuts/shortcuts.component';
-import { UserComponent } from 'app/layout/common/user/user.component';
+
 import { Subject, takeUntil } from 'rxjs';
+import { UserProfileComponent } from '../../../common/user-profile/user-profile.component';
+
 
 @Component({
     selector     : 'classic-layout',
     templateUrl  : './classic.component.html',
     encapsulation: ViewEncapsulation.None,
     standalone   : true,
-    imports      : [FuseLoadingBarComponent, FuseVerticalNavigationComponent, MatButtonModule, MatIconModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, ShortcutsComponent, MessagesComponent, NotificationsComponent, UserComponent, NgIf, RouterOutlet],
+    imports      : [FuseLoadingBarComponent, FuseVerticalNavigationComponent, MatButtonModule, MatIconModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, ShortcutsComponent, MessagesComponent, NotificationsComponent, NgIf, RouterOutlet,UserProfileComponent],
 })
 export class ClassicLayoutComponent implements OnInit, OnDestroy
 {
@@ -71,6 +73,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy
             .subscribe((navigation: Navigation) =>
             {
                 this.navigation = navigation;
+
             });
 
         // Subscribe to media changes
@@ -109,6 +112,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy
 
         if ( navigation )
         {
+            console.log("this is the component navigation",navigation);
             // Toggle the opened status
             navigation.toggle();
         }

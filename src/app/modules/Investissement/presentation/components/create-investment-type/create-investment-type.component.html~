@@ -1,0 +1,139 @@
+<div class="p-6 relative">
+
+
+        <mat-icon class="absolute top-4 right-4  hover:opacity-75" svgIcon="heroicons_outline:x-mark" style="color:#441406" (click)="close.emit()"></mat-icon>
+
+    <h2 class="text-xl font-bold mb-1" style="color: #441406">
+        Créer un nouveau type d'investissement
+    </h2>
+    <p class="text-sm  mb-6" style="color: #5CAC0E">Définissez le nouveau type d'investissement et ses champs personnalisés</p>
+
+    <!-- ID, Nom, Description -->
+    <div class="grid grid-cols-2 gap-4 mb-4">
+        <input type="text" placeholder="ID du type" class="w-full border px-3 py-2 rounded-md text-sm" #typeId />
+        <input type="text" placeholder="Nom du type" class="w-full border px-3 py-2 rounded-md text-sm" #typeName />
+    </div>
+    <textarea
+        placeholder="Description"
+        rows="3"
+        class="w-full border px-3 py-2 rounded-md text-sm mb-6 resize-none"
+        #typeDescription
+    ></textarea>
+
+    <!-- Table des champs -->
+    @if (fields().length > 0) {
+        <div class="mb-6 overflow-x-auto border rounded-lg">
+            <table class="min-w-full text-sm text-left">
+                <thead class="bg-gray-50 text-gray-500 font-medium">
+                <tr>
+                    <th class="px-4 py-2">Nom</th>
+                    <th class="px-4 py-2">Label</th>
+                    <th class="px-4 py-2">Type</th>
+                    <th class="px-4 py-2">Requis</th>
+                    <th class="px-4 py-2">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @for (field of fields(); track field.name) {
+                        <tr class="border-t">
+                            <td class="px-4 py-2">{{ field.name }}</td>
+                            <td class="px-4 py-2">{{ field.label }}</td>
+                            <td class="px-4 py-2">
+                <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs">
+                  {{ field.type }}
+                </span>
+                            </td>
+                            <td class="px-4 py-2">{{ field.required ? 'Oui' : 'Non' }}</td>
+                            <td class="px-4 py-2">
+                                <button mat-icon-button color="warn" (click)="removeField(field.name)">
+                                    <mat-icon svgIcon="heroicons_outline:trash" ></mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    @if (derivedFieldFormulas().length > 0) {
+        <div class="mb-6 overflow-x-auto border rounded-lg mt-6">
+            <table class="min-w-full text-sm text-left">
+                <thead class="bg-gray-50 text-gray-500 font-medium">
+                <tr>
+                    <th class="px-4 py-2">Nom</th>
+                    <th class="px-4 py-2">Formule</th>
+                    <th class="px-4 py-2">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @for (formula of derivedFieldFormulas(); track formula.name) {
+                        <tr class="border-t">
+                            <td class="px-4 py-2">{{ formula.name }}</td>
+                            <td class="px-4 py-2">{{ formula.formula }}</td>
+                            <td class="px-4 py-2">
+                                <button mat-icon-button color="warn" (click)="removeDerivedFormula(formula.name)">
+                                    <mat-icon svgIcon="heroicons_outline:trash"></mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <!-- Ajouter un champ -->
+    <div class="border rounded-md p-4">
+        <h4 class="text-sm font-semibold text-gray-700 mb-4">Ajouter un champ</h4>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <input type="text" placeholder="Nom du champ" class="w-full border px-3 py-2 rounded-md text-sm" #name />
+            <input type="text" placeholder="Label" class="w-full border px-3 py-2 rounded-md text-sm" #label />
+        </div>
+        <div class="grid grid-cols-2 gap-4 items-center mb-4">
+            <select class="w-full border px-3 py-2 rounded-md text-sm" #type>
+                <option value="Text">Text</option>
+                <option value="Number">Number</option>
+                <option value="Date">Date</option>
+            </select>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" #required />
+                <span class="text-sm text-gray-700">Champ requis</span>
+            </label>
+        </div>
+
+        <button
+            class="flex items-center gap-2 text-sm border px-3 py-2 rounded-md hover:bg-gray-50"
+            (click)="addField(name.value, label.value, type.value, required.checked); name.value=''; label.value=''; required.checked=false"
+        >
+            <mat-icon>add</mat-icon>
+            Ajouter le champ
+        </button>
+    </div>
+    <!-- Ajouter une formule dérivée -->
+    <div class="border rounded-md p-4 mt-6">
+        <h4 class="text-sm font-semibold text-gray-700 mb-4">Ajouter une formule dérivée</h4>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <input type="text" placeholder="Nom de la formule" class="w-full border px-3 py-2 rounded-md text-sm" #formulaName />
+            <input type="text" placeholder="Formule" class="w-full border px-3 py-2 rounded-md text-sm" #formulaValue />
+        </div>
+        <button
+            class="flex items-center gap-2 text-sm border px-3 py-2 rounded-md hover:bg-gray-50"
+            (click)="addDerivedFormula(formulaName.value, formulaValue.value); formulaName.value=''; formulaValue.value=''"
+        >
+            <mat-icon>add</mat-icon>
+            Ajouter la formule
+        </button>
+    </div>
+
+    <!-- Save button -->
+    <div class="mt-6 flex justify-end">
+        <button
+            class=" text-white px-6 py-2 rounded-md flex items-center gap-2 hover:opacity-90"
+            style="background-color: #FF680D"
+            (click)="onSubmit(typeId.value, typeName.value, typeDescription.value)"
+        >
+            <mat-icon  style="color: white">save</mat-icon>
+            Sauvegarder le type d'investissement
+        </button>
+    </div>
+</div>

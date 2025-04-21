@@ -357,6 +357,7 @@
     &:hover {
         .mat-mdc-form-field-focus-overlay {
             opacity: 0 !important;
+
         }
     }
 
@@ -364,6 +365,7 @@
     &.mat-focused {
         .mat-mdc-form-field-focus-overlay {
             opacity: 0 !important;
+
         }
     }
 
@@ -1281,3 +1283,4 @@ textarea.mat-mdc-input-element {
         color: var(--fuse-bg-default) !important;
     }
 }
+

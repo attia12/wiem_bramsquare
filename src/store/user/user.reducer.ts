@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import {  loginSuccess, logout } from './user.actions';
+import { loginSuccess, logout, logoutApiSuccess, logoutSuccess } from './user.actions';
 
 import { LoginResponse } from '../../app/modules/auth/domain/models/response/login-response';
 
@@ -44,13 +44,26 @@ export const userReducer = createReducer(
 
 
 
-    on(logout, () => {
+    on(logoutSuccess, () => {
 
         clearTokensInLocalStorage();
+
+        return {
+            token: null,
+            refreshToken: null,
+            role: null,
+        };
+    }),
+    on(logoutApiSuccess, () => {
+
+        clearTokensInLocalStorage();
+
         return {
             token: null,
             refreshToken: null,
             role: null,
         };
     })
+
+
 );

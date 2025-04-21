@@ -1,9 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { login, loginSuccess, loginFailure, logout, logoutSuccess } from './user.actions';
+import {
+    login,
+    loginSuccess,
+    loginFailure,
+    logout,
+    logoutSuccess,
+    logoutFailure,
+    logoutApi,
+    logoutApiFailure, logoutApiSuccess,
+} from './user.actions';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, tap } from 'rxjs';
 import { LoginResponse } from '../../app/modules/auth/domain/models/response/login-response';
 import { AuthService } from '../../app/modules/auth/domain/services/auth.service';
 import { Router } from '@angular/router';
@@ -16,7 +25,8 @@ export class UserEffects {
     constructor(private actions$: Actions, private http: HttpClient,
                 private authService: AuthService,
                 private router: Router,
-                private store: Store) {
+                private store: Store,
+                private zone:NgZone) {
     }
 
     // login$ = createEffect(() =>
@@ -51,11 +61,39 @@ export class UserEffects {
             ofType(logout),
             map(() => {
 
-                this.router.navigate(['/sign-in']).then(() => {
-                    window.location.reload();
-                });
+
+                const urlTree = this.router.createUrlTree(['/sign-in']);
+                this.router.navigateByUrl(urlTree);
                 return logoutSuccess(); // Dispatch logout success action
             })
         )
     );
+    logoutApi$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(logoutApi),
+            mergeMap(() =>
+                this.http.post(`http://localhost:8080/api/auth/logout`, {
+                    refreshToken: localStorage.getItem('authRefreshToken')
+                }, { responseType: 'text' }).pipe(
+
+                    map(() =>{
+
+                            // this.router.navigate(['/sign-in']).then(() => {
+                            //     window.location.reload();
+                            // });
+                            const urlTree = this.router.createUrlTree(['/sign-in']);
+                            this.router.navigateByUrl(urlTree);
+                            return logoutApiSuccess();
+
+                    }
+                        ),
+                    catchError((error) => {
+                        console.error('Logout error:', error);
+                        return of(logoutApiFailure({ error: error.message }));
+                    })
+                )
+            )
+        )
+    );
 }
+

@@ -29,7 +29,7 @@ import { selectIsAuthenticated, selectUserState } from '../../../../store/user/u
     animations: fuseAnimations,
     imports: [
         RouterLink,
-        FuseAlertComponent,
+        // FuseAlertComponent,
         FormsModule,
         ReactiveFormsModule,
         MatFormFieldModule,
@@ -70,6 +70,7 @@ export class AuthSignInComponent implements OnInit {
      * On init
      */
     ngOnInit(): void {
+        debugger
         // Create the form
         this.signInForm = this._formBuilder.group({
             email: [
@@ -79,13 +80,13 @@ export class AuthSignInComponent implements OnInit {
             password: ['admin', Validators.required],
             rememberMe: [''],
         });
-        // this.subscribeToUserState();
-        // this.isAuthenticated$.subscribe((isAuthenticated) => {
-        //     if (isAuthenticated) {
-        //         // If the user is authenticated, redirect them to the dashboard
-        //         this._router.navigateByUrl('/dashboard');
-        //     }
-        // });
+        this.subscribeToUserState();
+        this.isAuthenticated$.subscribe((isAuthenticated) => {
+            if (isAuthenticated) {
+                // If the user is authenticated, redirect them to the dashboard
+                this._router.navigateByUrl('/dashboard');
+            }
+        });
 
 
     }

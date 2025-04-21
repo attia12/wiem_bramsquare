@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Notification } from 'app/layout/common/notifications/notifications.types';
 import { map, Observable, ReplaySubject, switchMap, take, tap } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationsService {
-    private _notifications: ReplaySubject<Notification[]> = new ReplaySubject<
+    private _notifications: ReplaySubject<any[]> = new ReplaySubject<
         Notification[]
     >(1);
 
@@ -32,12 +33,13 @@ export class NotificationsService {
     /**
      * Get all notifications
      */
-    getAll(): Observable<Notification[]> {
+    getAll(): Observable<any[]> {
         return this._httpClient
-            .get<Notification[]>('api/common/notifications')
+            .get<any[]>(`${environment.apiUrl}notifications/get-all-notifications`)
             .pipe(
-                tap((notifications) => {
-                    this._notifications.next(notifications);
+                tap((notifications:any) => {
+                    console.log("notifications",notifications);
+                    this._notifications.next(notifications.notifications);
                 })
             );
     }

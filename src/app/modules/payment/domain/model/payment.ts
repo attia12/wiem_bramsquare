@@ -1,7 +1,8 @@
 export enum PaymentMethod {
-    CARD = 'CARD',
-    MOBILE_MONEY = 'MOBILE_MONEY',
-    PAYPAL = 'PAYPAL'
+
+CREDIT_CARD='CREDIT_CARD',
+    BANK_TRANSFER='BANK_TRANSFER',
+    PAYPAL='PAYPAL'
 }
 
 export enum PaymentStatus {

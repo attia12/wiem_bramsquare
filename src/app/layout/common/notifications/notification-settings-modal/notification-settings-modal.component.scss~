@@ -1,0 +1,6 @@
+
+::ng-deep .mdc-slider {
+    --mdc-slider-handle-color: #5CAC0E;
+    --mdc-slider-active-track-color: #5CAC0E;
+    --mdc-slider-inactive-track-color: #CDE9C3;
+}

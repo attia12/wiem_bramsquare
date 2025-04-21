@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatInput } from '@angular/material/input';
+
+import {  MatIconButton } from '@angular/material/button';
+
 
 @Component({
     selector: 'app-add-payment-method',

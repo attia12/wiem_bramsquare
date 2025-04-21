@@ -29,7 +29,7 @@ import { selectIsAuthenticated, selectUserState } from '../../../../store/user/u
     animations: fuseAnimations,
     imports: [
         RouterLink,
-        FuseAlertComponent,
+        // FuseAlertComponent,
         FormsModule,
         ReactiveFormsModule,
         MatFormFieldModule,
@@ -70,6 +70,7 @@ export class AuthSignInComponent implements OnInit {
      * On init
      */
     ngOnInit(): void {
+
         // Create the form
         this.signInForm = this._formBuilder.group({
             email: [

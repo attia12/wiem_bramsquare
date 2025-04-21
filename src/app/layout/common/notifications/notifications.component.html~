@@ -29,7 +29,7 @@
 <!--        >-->
         <div
             class="flex shrink-0 items-center  py-4 pl-6 pr-4 text-on-primary"
-            style="background-color: rgba(216, 90, 11, 1);"
+            style="background-color: #FF680D;"
         >
             <div class="-ml-1 mr-3 sm:hidden">
                 <button mat-icon-button (click)="closePanel()">
@@ -38,9 +38,21 @@
                         [svgIcon]="'heroicons_solid:x-mark'"
                     ></mat-icon>
                 </button>
+
             </div>
             <div class="text-lg font-medium leading-10">Notifications</div>
             <div class="ml-auto">
+
+                <button
+                    class="dark:text-white"
+                    mat-icon-button
+                    [matTooltip]="'Settings'"
+                >
+                    <mat-icon
+                        class="text-current icon-size-5"
+                        [svgIcon]="'heroicons_outline:cog-8-tooth'"
+                    ></mat-icon>
+                </button>
                 <button
                     class="dark:text-white"
                     mat-icon-button
@@ -52,6 +64,7 @@
                         class="text-current icon-size-5"
                         [svgIcon]="'heroicons_solid:envelope-open'"
                     ></mat-icon>
+
                 </button>
             </div>
         </div>
@@ -144,17 +157,13 @@
                 <!-- Notification content template -->
                 <ng-template #notificationContent>
                     <!-- Icon -->
-                    @if (notification.icon && !notification.image) {
+<!--                    @if (notification.icon && !notification.image) {-->
                         <div
                             class="mr-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700"
                         >
-                            <mat-icon
-                                class="icon-size-5"
-                                [svgIcon]="notification.icon"
-                            >
-                            </mat-icon>
+                            <mat-icon svgIcon="heroicons_outline:banknotes"></mat-icon>
                         </div>
-                    }
+<!--                    }-->
                     <!-- Image -->
                     @if (notification.image) {
                         <img
@@ -171,14 +180,14 @@
                                 [innerHTML]="notification.title"
                             ></div>
                         }
-                        @if (notification.description) {
+                        @if (notification.message) {
                             <div
                                 class="line-clamp-2"
-                                [innerHTML]="notification.description"
+                                [innerHTML]="notification.message"
                             ></div>
                         }
                         <div class="text-secondary mt-2 text-sm leading-none">
-                            {{ notification.time | date: 'MMM dd, h:mm a' }}
+                            {{ notification.sentAt | date: 'MMM dd, h:mm a' }}
                         </div>
                     </div>
                 </ng-template>

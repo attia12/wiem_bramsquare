@@ -2,8 +2,8 @@
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <div class="flex items-center justify-between mb-6">
-            <h1 class="text-2xl font-bold">Investissements Partenaires</h1>
-            <button mat-flat-button color="primary">
+            <h1 class="text-2xl font-bold" style="color: #441406">Investissements Partenaires</h1>
+            <button mat-flat-button style="background-color: #FF680D;color: white" (click)="openAddInvestment()">
                 <mat-icon>add</mat-icon>
                 Ajouter un investisseur
             </button>
@@ -33,6 +33,7 @@
 
             <mat-button-toggle value="dashboard">Tableau de bord</mat-button-toggle>
             <mat-button-toggle value="investors">Liste des investisseurs</mat-button-toggle>
+            <mat-button-toggle value="type_investissement">Types d'investissement</mat-button-toggle>
             <mat-button-toggle value="trends">Analyse des tendances</mat-button-toggle>
             <mat-button-toggle value="recommendations">Recommandations</mat-button-toggle>
         </mat-button-toggle-group>
@@ -53,6 +54,10 @@
             }
             @case ('recommendations') {
                 <h1>hello recomodation</h1>
+                <!-- <app-recommendations></app-recommendations> -->
+            }
+            @case ('type_investissement') {
+               <app-type-investissement/>
                 <!-- <app-recommendations></app-recommendations> -->
             }
         }

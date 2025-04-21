@@ -1,0 +1,58 @@
+<h2 class="text-xl font-bold mb-1">Paramètres des notifications</h2>
+<p class="text-sm text-gray-500 mb-6">
+    Configurez à l'avance de combien de jours vous souhaitez être notifié avant chaque type de paiement.
+</p>
+
+<!-- Sliders -->
+<div class="space-y-6">
+    <div>
+        <p>Factures: {{ factureDays() }} jours avant</p>
+        <mat-slider  style="width: 100%;" min="1" max="30">
+            <input
+                matSliderThumb
+                [value]="factureDays()"
+                (input)="factureDays.set($any($event.target).value)"
+            />
+        </mat-slider>
+    </div>
+
+    <div>
+        <p>Salaires: {{ salairesDays() }} jours avant</p>
+        <mat-slider  style="width: 100%;" min="1" max="14">
+            <input
+                matSliderThumb
+                [value]="salairesDays()"
+                (input)="salairesDays.set($any($event.target).value)"
+            />
+        </mat-slider>
+    </div>
+
+    <div>
+        <p>Taxes: {{ taxesDays() }} jours avant</p>
+        <mat-slider  style="width: 100%;" min="1" max="21">
+            <input
+                matSliderThumb
+                [value]="taxesDays()"
+                (input)="taxesDays.set($any($event.target).value)"
+            />
+        </mat-slider>
+    </div>
+
+    <div>
+        <p>Abonnements: {{ abonnementsDays() }} jours avant</p>
+        <mat-slider  style="width: 100%;" min="1" max="10" >
+            <input
+
+                matSliderThumb
+                [value]="abonnementsDays()"
+                (input)="abonnementsDays.set($any($event.target).value)"
+            />
+        </mat-slider>
+    </div>
+</div>
+
+<!-- Actions -->
+<div class="mt-8 flex justify-end gap-3">
+    <button mat-button [ngStyle]="{ 'background-color': '#efefff' }" (click)="close()">Annuler</button>
+    <button mat-raised-button [ngStyle]="{ 'background-color': '#FF680D', color: 'white' }" (click)="save()">Enregistrer</button>
+</div>

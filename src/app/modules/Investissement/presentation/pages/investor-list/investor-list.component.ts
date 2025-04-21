@@ -10,7 +10,7 @@ import {
     MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
     MatTable,
 } from '@angular/material/table';
-import { DecimalPipe, NgClass } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 
@@ -24,13 +24,14 @@ import { MatIconButton } from '@angular/material/button';
         MatCell,
         MatCellDef,
         DecimalPipe,
-        NgClass,
+
         MatIcon,
         MatHeaderRow,
         MatHeaderRowDef,
         MatRowDef,
         MatRow,
         MatIconButton,
+        DatePipe,
     ],
     templateUrl: './investor-list.component.html',
     standalone: true,
@@ -39,14 +40,14 @@ import { MatIconButton } from '@angular/material/button';
 })
 export class InvestorListComponent implements OnInit , OnDestroy{
     columns: string[] = [
-        'nom',
-        'montant',
-        'type',
-        'roiAttendu',
-        'roiActuel',
-        'revenus',
-        'performance',
-        'actions'
+        'ref',
+        'investorName',
+        'amount',
+        'description',
+        'email',
+        'typeId',
+        'date',
+        'actions',
     ];
     data: any;
     private _unsubscribeAll: Subject<any> = new Subject<any>();

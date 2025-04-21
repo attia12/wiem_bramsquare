@@ -1,4 +1,24 @@
-/* ----------------------------------------------------------------------------------------------------- */
-/*  @ Import/write your custom styles here.
-/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
-/* ----------------------------------------------------------------------------------------------------- */
+/* Apply maroon background and white text */
+.fc .fc-button {
+    background-color: #441406 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
+}
+
+/* Keep same maroon color on hover */
+.fc .fc-button:hover {
+    background-color: #441406 !important;
+}
+
+/* Optional: Ensure icons look consistent */
+.fc .fc-button .fc-icon {
+    font-size: 1rem !important;
+    color: white !important;
+}
+
+
+

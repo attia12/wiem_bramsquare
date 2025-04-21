@@ -30,7 +30,7 @@ export class PaymentService {
         );
     }
     savePayment(newPayment: Payment): Observable<Payment> {
-        const payments = this._data.getValue();
+        const payments = this._data.getValue() ?? [];
 
         const save$ = this._httpClient.post<Payment>(`${environment.apiUrl}payments/add-payment`, newPayment).pipe(
             tap((saved:any) => {
@@ -71,5 +71,9 @@ export class PaymentService {
             }),
             shareReplay()
         );
+    }
+
+    updatePayment(payment: Payment) {
+        return undefined;
     }
 }

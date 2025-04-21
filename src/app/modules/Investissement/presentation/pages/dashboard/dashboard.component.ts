@@ -12,6 +12,8 @@ export type ChartOptions = {
     grid: ApexGrid;
     title?: ApexTitleSubtitle;
     legend?: ApexLegend;
+    colors?: string[];
+    fill?: ApexFill;
 };
 @Component({
     selector: 'app-dashboard',
@@ -55,6 +57,8 @@ export class DashboardComponent {
                 stacked: false,
                 toolbar: { show: false }
             },
+            colors: ['#FF680D', '#5CAC0E', '#facc15', '#ef4444'],
+
             dataLabels: {
                 enabled: false
             },
