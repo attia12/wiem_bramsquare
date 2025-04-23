@@ -85,4 +85,7 @@ export class PaymentService {
             { params }
         );
     }
+    cancelPayment(paymentId: string): Observable<any> {
+        return this._httpClient.patch(`${environment.apiUrl}payments/cancel/${paymentId}`, {});
+    }
 }

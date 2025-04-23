@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, shareReplay, tap, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { Payment } from '../model/payment';
 import { LoadingService } from '../../../../../common/services/loading.service';
@@ -75,5 +75,14 @@ export class PaymentService {
 
     updatePayment(payment: Payment) {
         return undefined;
+    }
+    postponePayment(paymentId: string, newDate: Date): Observable<any> {
+        const params = new HttpParams().set('newDate', newDate.toISOString().split('T')[0]);
+
+        return this._httpClient.put<any>(
+            `${environment.apiUrl}payments/postpone-payment/${paymentId}`,
+            {},
+            { params }
+        );
     }
 }
