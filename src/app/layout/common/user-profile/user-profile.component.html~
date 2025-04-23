@@ -37,7 +37,7 @@
 
     <mat-divider class="my-2"></mat-divider>
 
-    <button mat-menu-item type="button" (click)="onLogout()">
+    <button mat-menu-item (click)="onLogout()">
         <mat-icon svgIcon="heroicons_outline:arrow-right-on-rectangle"></mat-icon>
         <span>Sign out</span>
     </button>

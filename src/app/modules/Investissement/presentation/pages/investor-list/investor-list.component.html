@@ -4,7 +4,7 @@
         <table
             class="min-w-240 overflow-y-visible"
             mat-table
-            [dataSource]="data">
+            [dataSource]="paginatedData">
 
             <ng-container matColumnDef="ref">
                 <th mat-header-cell *matHeaderCellDef>Référence</th>
@@ -89,6 +89,16 @@
                                 <mat-icon>picture_as_pdf</mat-icon>
                                 <span>Exporter PDF</span>
                             </button>
+                            <button mat-menu-item (click)="updateInvestor(investor)">
+                                <mat-icon>edit</mat-icon>
+                                <span>Modifier</span>
+                            </button>
+
+
+                            <button mat-menu-item (click)="deleteInvestor(investor)">
+                                <mat-icon>delete</mat-icon>
+                                <span>Delete</span>
+                            </button>
                         </mat-menu>
                     </div>
                 </td>
@@ -98,5 +108,14 @@
             <tr mat-header-row *matHeaderRowDef="columns"></tr>
             <tr   class="cursor-pointer hover:bg-gray-50" mat-row *matRowDef="let row; columns: columns;" (click)="openInvestorDetails(row)"></tr>
         </table>
+        <mat-paginator
+            [length]="data.length"
+            [pageSize]="5"
+            [pageIndex]="0"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            (page)="onPageChange($event)"
+            [showFirstLastButtons]="true">
+        </mat-paginator>
+
     </div>
 </div>

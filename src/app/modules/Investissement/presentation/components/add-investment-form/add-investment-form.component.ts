@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { InvestmentType } from '../../../domain/models/investment-type';
 import { TypesDinvestissementService } from '../../../domain/services/types-dinvestissement.service';
 import { InvestissementService } from '../../../domain/services/investissement.service';
+import { LottieComponent } from 'ngx-lottie';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { InvestissementService } from '../../../domain/services/investissement.s
     imports: [
         ReactiveFormsModule,
         MatIcon,
+        LottieComponent,
     ],
     templateUrl: './add-investment-form.component.html',
     standalone: true,
@@ -23,6 +25,14 @@ export class AddInvestmentFormComponent implements OnInit{
     investmentTypes = signal<InvestmentType[]>([]);
     selectedInvestmentType = signal<string>('');
     selectedInvestmentFields = signal<any>({});
+    isLoading = signal(false);
+    lottieConfig = signal<any>({
+
+        path: '/loading.json',
+        renderer: 'svg',
+        loop: true,
+        autoplay: true
+    });
 
     constructor(private investissementService:InvestissementService,private fb: FormBuilder,private dialogRef: MatDialogRef<AddInvestmentFormComponent>, private typesService: TypesDinvestissementService) {
         this.investmentForm = this.fb.group({
@@ -37,6 +47,7 @@ export class AddInvestmentFormComponent implements OnInit{
     onSubmit(): void {
         if (this.investmentForm.valid) {
             const formValue = this.investmentForm.value;
+            this.isLoading.set(true);
 
             // Ensure numeric fields are treated as numbers
             const formattedValue = {
@@ -70,6 +81,10 @@ export class AddInvestmentFormComponent implements OnInit{
                 error: (err) => {
                     console.error('Error adding investment:', err);
                 },
+                complete: () => {
+
+                    this.isLoading.set(false);
+                }
             });
         } else {
             // Show validation errors

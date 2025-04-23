@@ -82,36 +82,76 @@ export class NotificationsService {
      * @param id
      * @param notification
      */
-    update(id: string, notification: Notification): Observable<Notification> {
+    // update(id: string, notification: Notification): Observable<Notification> {
+    //     return this.notifications$.pipe(
+    //         take(1),
+    //         switchMap((notifications) =>
+    //             this._httpClient
+    //                 .patch<Notification>(`${environment.apiUrl}notifications/read/{{id}}`, {
+    //                     id,
+    //                     notification,
+    //                 })
+    //                 .pipe(
+    //                     map((updatedNotification: Notification) => {
+    //                         // Find the index of the updated notification
+    //                         const index = notifications.findIndex(
+    //                             (item) => item.id === id
+    //                         );
+    //
+    //                         // Update the notification
+    //                         notifications[index] = updatedNotification;
+    //
+    //                         // Update the notifications
+    //                         this._notifications.next(notifications);
+    //
+    //                         // Return the updated notification
+    //                         return updatedNotification;
+    //                     })
+    //                 )
+    //         )
+    //     );
+    // }
+    update(notificationId: string): Observable<Notification> {
         return this.notifications$.pipe(
             take(1),
             switchMap((notifications) =>
                 this._httpClient
-                    .patch<Notification>('api/common/notifications', {
-                        id,
-                        notification,
-                    })
+                    .put<{ message: string, notifications: Notification[], error?: string }>(
+                        `${environment.apiUrl}notifications/read/${notificationId}`, {}
+                    )
                     .pipe(
-                        map((updatedNotification: Notification) => {
-                            // Find the index of the updated notification
-                            const index = notifications.findIndex(
-                                (item) => item.id === id
-                            );
+                        map((response) => {
+                            // Ensure the response contains the updated notifications
+                            if (response.notifications && response.notifications.length > 0) {
+                                // Get the updated notification from the response
+                                const updatedNotification = response.notifications[0];
 
-                            // Update the notification
-                            notifications[index] = updatedNotification;
+                                // Find the index of the notification we want to update
+                                const index = notifications.findIndex(
+                                    (item) => item.id === notificationId
+                                );
 
-                            // Update the notifications
-                            this._notifications.next(notifications);
+                                if (index !== -1) {
+                                    // Update the status of the notification as read without adding a new one
+                                    notifications[index] = {
+                                        ...notifications[index],
+                                        read: true
+                                    };
 
-                            // Return the updated notification
-                            return updatedNotification;
+                                    // Update the notifications list in the ReplaySubject
+                                    this._notifications.next(notifications);
+                                }
+
+                                // Return the updated notification
+                                return updatedNotification;
+                            } else {
+                                throw new Error('Notification not found');
+                            }
                         })
                     )
             )
         );
     }
-
     /**
      * Delete the notification
      *

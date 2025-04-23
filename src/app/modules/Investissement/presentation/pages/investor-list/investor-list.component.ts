@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { InvestissementService } from '../../../domain/services/investissement.service';
 import { Subject, takeUntil } from 'rxjs';
 import {
@@ -16,6 +24,8 @@ import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { InvestorDetailsComponent } from '../../components/investor-details/investor-details.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+
 
 @Component({
     selector: 'app-investor-list',
@@ -38,13 +48,14 @@ import { MatDialog } from '@angular/material/dialog';
         MatMenu,
         MatMenuTrigger,
         MatMenuItem,
+        MatPaginator,
     ],
     templateUrl: './investor-list.component.html',
     standalone: true,
     styleUrl: './investor-list.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InvestorListComponent implements OnInit , OnDestroy{
+export class InvestorListComponent implements OnInit , OnDestroy, AfterViewInit{
     columns: string[] = [
         'ref',
         'investorName',
@@ -56,6 +67,8 @@ export class InvestorListComponent implements OnInit , OnDestroy{
         'actions',
     ];
     data: any;
+    paginatedData: any[] = [];
+    @ViewChild(MatPaginator) paginator: MatPaginator;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     constructor(
@@ -76,6 +89,9 @@ export class InvestorListComponent implements OnInit , OnDestroy{
 
                 this.data = data.content;
                 console.log("the component notified success",this.data)
+
+
+                this.updatePaginatedData();
                 this.cdr.markForCheck();
 
 
@@ -109,5 +125,35 @@ export class InvestorListComponent implements OnInit , OnDestroy{
             data: row,
 
         });
+    }
+
+    updateInvestor(investor) {
+
+    }
+
+    deleteInvestor(investor) {
+
+    }
+
+    onPageChange(event: any) {
+        console.log('Page Changed:', event);
+        const startIndex = event.pageIndex * event.pageSize;
+        const endIndex = startIndex + event.pageSize;
+        this.paginatedData = this.data.slice(startIndex, endIndex);
+        console.log('Paginated data:', this.paginatedData);
+    }
+
+    // Update paginated data manually
+    updatePaginatedData() {
+        const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+        const endIndex = startIndex + this.paginator.pageSize;
+        this.paginatedData = this.data.slice(startIndex, endIndex);
+        console.log("paginated data",this.paginatedData);
+    }
+
+    ngAfterViewInit(): void {
+        if (this.paginator) {
+            this.updatePaginatedData();
+        }
     }
 }

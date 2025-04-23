@@ -5,7 +5,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { PaymentFormComponent } from '../payment-form/payment-form.component';
 import { DatePipe } from '@angular/common';
-import { Payment, PaymentType } from '../../../domain/model/payment';
+import { Payment, PaymentStatus, PaymentType } from '../../../domain/model/payment';
 import { PaymentService } from '../../../domain/services/payment.service';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -79,7 +79,8 @@ export class PaymentCalendarComponent {
                 id: p.id,
                 title: p.beneficiary,
                 start: p.date,
-                color: this.getColorForType(p.type)
+               // color: this.getColorForType(p.type)
+                color: this.getColorForPayment(p),
             }));
 
             this.cdr.detectChanges();
@@ -114,6 +115,12 @@ export class PaymentCalendarComponent {
             default: return '#9ca3af';
         }
     }
+    getColorForPayment(payment: Payment): string {
+        if (payment.status === PaymentStatus.CANCELED) {
+            return '#ef4444';
+        }
+        return this.getColorForType(payment.type);
+    }
     onEventDrop(info: any) {
         const newDate = info.event.startStr;
         const paymentId = info.event.id;
@@ -141,6 +148,44 @@ export class PaymentCalendarComponent {
                 });
             } else {
                 info.revert(); // Cancel the drag
+            }
+        });
+    }
+
+    cancelPayment(paymentId: string, event: MouseEvent): void {
+        event.stopPropagation(); // Prevent row click from firing
+
+        this.paymentService.cancelPayment(paymentId).subscribe({
+            next: () => {
+
+                this.payments = this.payments.map(p =>
+                    p.id === paymentId ? { ...p, status: PaymentStatus.CANCELED } : p
+                );
+
+                // Update selectedPayments as well
+                this.selectedPayments = this.selectedPayments.map(p =>
+                    p.id === paymentId ? { ...p, status: PaymentStatus.CANCELED } : p
+                );
+
+                // Optionally filter out canceled if you don't want to show them
+                this.selectedPayments = this.selectedPayments.filter(p =>
+                    p.status !== PaymentStatus.CANCELED
+                );
+
+                // Refresh calendar events
+                this.calendarOptions.events = this.payments
+
+                    .map(p => ({
+                        id: p.id,
+                        title: p.beneficiary,
+                        start: p.date,
+                        color: this.getColorForPayment(p),
+                    }));
+
+                this.cdr.detectChanges();
+            },
+            error: err => {
+                console.error('❌ Failed to cancel payment:', err);
             }
         });
     }

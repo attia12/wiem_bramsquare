@@ -85,7 +85,9 @@
 
                                     <!-- Bouton Annuler -->
                                     <button
-                                        class="py-2 rounded-md bg-white text-red-700 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-white w-full">
+                                        class="py-2 rounded-md bg-white text-red-700 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-white w-full" (click)="cancelPayment(payment.id, $event)"
+                                        [disabled]="payment.status === 'CANCELED'"
+                                                            >
                                         <mat-icon class="text-sm text-red-700" >cancel</mat-icon>
                                         Annuler
                                     </button>

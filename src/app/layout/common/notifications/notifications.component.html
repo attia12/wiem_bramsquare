@@ -130,6 +130,7 @@
                                     ? 'Mark as unread'
                                     : 'Mark as read'
                             "
+                            [disabled]="notification.read"
                         >
                             <span
                                 class="h-2 w-2 rounded-full"
@@ -138,6 +139,7 @@
                                         notification.read,
                                     'bg-primary': !notification.read,
                                 }"
+
                             ></span>
                         </button>
                         <!-- Remove -->

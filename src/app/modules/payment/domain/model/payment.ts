@@ -8,7 +8,8 @@ CREDIT_CARD='CREDIT_CARD',
 export enum PaymentStatus {
     PENDING = 'PENDING',
     COMPLETED = 'COMPLETED',
-    FAILED = 'FAILED'
+    FAILED = 'FAILED',
+    CANCELED = 'CANCELED',
 }
 
 export enum PaymentType {

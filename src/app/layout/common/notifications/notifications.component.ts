@@ -174,7 +174,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
         // Update the notification
         this._notificationsService
-            .update(notification.id, notification)
+            .update(notification.id)
             .subscribe();
     }
 

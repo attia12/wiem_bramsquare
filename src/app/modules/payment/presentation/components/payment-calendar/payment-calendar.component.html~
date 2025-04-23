@@ -6,7 +6,7 @@
 
             <div class="col-span-2 bg-white p-6 shadow rounded-lg ">
                 <h2 class="text-lg font-semibold" style="color: #441406">Calendrier des paiements</h2>
-                <p class=" text-sm mb-4" style="color: #5CAC0E">Planifiez et suivez vos paiements</p>
+                <p class=" text-sm mb-4" style="color: #FF680D">Planifiez et suivez vos paiements</p>
                 <full-calendar   [options]="calendarOptions"></full-calendar>
             </div>
 
@@ -85,7 +85,7 @@
 
                                     <!-- Bouton Annuler -->
                                     <button
-                                        class="py-2 rounded-md bg-white text-red-700 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-white w-full">
+                                        class="py-2 rounded-md bg-white text-red-700 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-white w-full" (click)="cancelPayment(payment.id, $event)">
                                         <mat-icon class="text-sm text-red-700" >cancel</mat-icon>
                                         Annuler
                                     </button>

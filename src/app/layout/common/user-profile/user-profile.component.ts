@@ -7,6 +7,7 @@ import { NgClass } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { Store } from '@ngrx/store';
 import { logoutApi } from '../../../../store/user/user.actions';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-user-profile',
@@ -26,10 +27,35 @@ import { logoutApi } from '../../../../store/user/user.actions';
 
 })
 export class UserProfileComponent {
-    constructor(private store: Store) {}
+    private staticUserData = {
+        id: '1',
+        investorName: 'John Doe',
+        email: 'john.doe@example.com',
+        role: 'Investor',
+
+        description: 'An important investor in the company.',
+        date: new Date(),
+
+    };
+    constructor(private store: Store,private router: Router) {}
     onLogout(): void {
         console.log("logging out");
         this.store.dispatch(logoutApi());
 
+    }
+
+    onProfileClick() {
+        // Retrieve the user data from the store or session
+        // this.store.pipe(select(selectUserState)).subscribe((userState) => {
+        //     if (userState) {
+        //         // Navigate to the profile component and pass the user data via state
+        //         this.router.navigate(['/profile'], {
+        //             state: { user: userState }, // Pass user data in the route state
+        //         });
+        //     }
+        // });
+        this.router.navigate(['/dashboard/profile'], {
+                        state: { user: this.staticUserData },
+                    });
     }
 }
