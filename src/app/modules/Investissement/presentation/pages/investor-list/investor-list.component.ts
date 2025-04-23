@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { InvestissementService } from '../../../domain/services/investissement.service';
 import { Subject, takeUntil } from 'rxjs';
 import {
@@ -13,6 +13,9 @@ import {
 import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { InvestorDetailsComponent } from '../../components/investor-details/investor-details.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-investor-list',
@@ -32,6 +35,9 @@ import { MatIconButton } from '@angular/material/button';
         MatRow,
         MatIconButton,
         DatePipe,
+        MatMenu,
+        MatMenuTrigger,
+        MatMenuItem,
     ],
     templateUrl: './investor-list.component.html',
     standalone: true,
@@ -54,6 +60,8 @@ export class InvestorListComponent implements OnInit , OnDestroy{
 
     constructor(
         private _investissementService: InvestissementService,
+        private cdr: ChangeDetectorRef,
+        private dialog:MatDialog,
 
     )
     {
@@ -67,7 +75,8 @@ export class InvestorListComponent implements OnInit , OnDestroy{
             {
 
                 this.data = data.content;
-                console.log(this.data)
+                console.log("the component notified success",this.data)
+                this.cdr.markForCheck();
 
 
             });
@@ -79,4 +88,26 @@ export class InvestorListComponent implements OnInit , OnDestroy{
         this._unsubscribeAll.complete();
     }
 
+    exportAsCSV() {
+        this._investissementService.exportCsv();
+
+    }
+
+    exportAsExcel() {
+        this._investissementService.exportExcel();
+
+    }
+
+    exportAsPDF() {
+        this._investissementService.exportPdf();
+
+    }
+
+    openInvestorDetails(row) {
+        console.log(row);
+        this.dialog.open(InvestorDetailsComponent, {
+            data: row,
+
+        });
+    }
 }

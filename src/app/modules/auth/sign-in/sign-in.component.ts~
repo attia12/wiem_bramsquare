@@ -70,7 +70,7 @@ export class AuthSignInComponent implements OnInit {
      * On init
      */
     ngOnInit(): void {
-        debugger
+
         // Create the form
         this.signInForm = this._formBuilder.group({
             email: [
@@ -145,6 +145,7 @@ export class AuthSignInComponent implements OnInit {
     // }
     signIn(): void {
         if (this.signInForm.invalid) {
+
             return;
         }
 
@@ -153,9 +154,9 @@ export class AuthSignInComponent implements OnInit {
 
         console.log("🚀 Dispatching login action:", this.signInForm.value);
         this._store.dispatch(login({ request: this.signInForm.value }));
-        setTimeout(() => {
-            this.signInForm.enable();
-        }, 1000);
+        // setTimeout(() => {
+        //     this.signInForm.enable();
+        // }, 1000);
 
 
     }

@@ -20,7 +20,10 @@ import { NotificationsService } from 'app/layout/common/notifications/notificati
 import { Notification } from 'app/layout/common/notifications/notifications.types';
 import { Subject, takeUntil } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-
+import {
+    NotificationSettingsModalComponent
+} from './notification-settings-modal/notification-settings-modal.component';
+import { formatDistanceToNow } from 'date-fns';
 @Component({
     selector: 'notifications',
     templateUrl: './notifications.component.html',
@@ -34,7 +37,7 @@ import { MatDialog } from '@angular/material/dialog';
         NgClass,
         NgTemplateOutlet,
         RouterLink,
-        DatePipe,
+
     ],
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
@@ -44,8 +47,11 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
     notifications: Notification[];
     unreadCount: number = 0;
+    private _lastUnreadCount: number = 0;
     private _overlayRef: OverlayRef;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _audio = new Audio('/ring_bell.mp3');
+
 
     /**
      * Constructor
@@ -65,26 +71,76 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     /**
      * On init
      */
+    // ngOnInit(): void {
+    //     window.addEventListener('click', this._unlockAudioOnce, { once: true });
+    //
+    //     // Subscribe to notification changes
+    //     this._notificationsService.notifications$
+    //         .pipe(takeUntil(this._unsubscribeAll))
+    //         .subscribe((notifications: Notification[]) => {
+    //             console.log("notifications from service", notifications);  // Check if notifications are received
+    //
+    //             // Load the notifications into the component
+    //             this.notifications = notifications;
+    //
+    //             // Check the data binding here to ensure the notifications array is populated
+    //             console.log("notifications after binding to component:", this.notifications);
+    //
+    //             // Calculate the unread count
+    //             this._calculateUnreadCount();
+    //             // 🔔 Play sound if new unread notification came in
+    //             if (this.unreadCount > this._lastUnreadCount) {
+    //                 this._playNotificationSound();
+    //             }
+    //
+    //             this._lastUnreadCount = this.unreadCount;
+    //
+    //             // Mark for check
+    //             this._changeDetectorRef.markForCheck();
+    //         });
+    // }
     ngOnInit(): void {
-        // Subscribe to notification changes
-        this._notificationsService.notifications$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((notifications: Notification[]) => {
-                // Load the notifications
-                this.notifications = notifications;
+        window.addEventListener('click', this._unlockAudioOnce, { once: true });
 
-                // Calculate the unread count
-                this._calculateUnreadCount();
+        // Fetch notifications from the API
+        this._notificationsService.getAll().subscribe({
+            next: () => {
+                // Subscribe to notification changes after fetching data
+                this._notificationsService.notifications$
+                    .pipe(takeUntil(this._unsubscribeAll))
+                    .subscribe((notifications: Notification[]) => {
+                        console.log("notifications from service", notifications);  // Check if notifications are received
 
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
+                        // Load the notifications into the component
+                        this.notifications = notifications;
+
+                        // Check the data binding here to ensure the notifications array is populated
+                        console.log("notifications after binding to component:", this.notifications);
+
+                        // Calculate the unread count
+                        this._calculateUnreadCount();
+                        // 🔔 Play sound if new unread notification came in
+                        if (this.unreadCount > this._lastUnreadCount) {
+                            this._playNotificationSound();
+                        }
+
+                        this._lastUnreadCount = this.unreadCount;
+
+                        // Mark for check
+                        this._changeDetectorRef.markForCheck();
+                    });
+            },
+            error: (err) => {
+                console.error("Error fetching notifications", err);
+            }
+        });
     }
 
     /**
      * On destroy
      */
     ngOnDestroy(): void {
+        window.removeEventListener('click', this._unlockAudioOnce);
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
@@ -94,6 +150,17 @@ export class NotificationsComponent implements OnInit, OnDestroy {
             this._overlayRef.dispose();
         }
     }
+    private _unlockAudioOnce = () => {
+        this._audio.muted = true;
+        this._audio.play().then(() => {
+            this._audio.pause();
+            this._audio.currentTime = 0;
+            this._audio.muted = false;
+            console.log('🔓 Audio context unlocked');
+        }).catch(err => {
+            console.warn('❌ Failed to unlock audio:', err);
+        });
+    };
 
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
@@ -246,5 +313,17 @@ export class NotificationsComponent implements OnInit, OnDestroy {
                 // You can persist settings here
             }
         });
+    }
+
+    private _playNotificationSound() {
+        this._audio.pause();
+        this._audio.currentTime = 0;
+        this._audio.play().catch(err => {
+            console.warn("Audio couldn't play (maybe user hasn't interacted):", err);
+        });
+
+    }
+    formatTimeAgo(date: Date): string {
+        return formatDistanceToNow(new Date(date), { addSuffix: true });
     }
 }

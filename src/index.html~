@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Fuse Angular - Angular Template and Starter Kit</title>
+        <title>Leggy Finances</title>
         <meta charset="utf-8" />
         <meta
             name="description"
@@ -39,7 +39,7 @@
     <body>
         <!-- Splash screen -->
         <fuse-splash-screen>
-            <img src="/logo_legy_2.svg"  alt="Fuse logo"  />
+            <img src="/logo_light.svg"  alt="Fuse logo"  />
             <div class="spinner">
                 <div class="bounce1"></div>
                 <div class="bounce2"></div>

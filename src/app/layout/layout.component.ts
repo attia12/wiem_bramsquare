@@ -25,6 +25,7 @@ import { ThinLayoutComponent } from './layouts/vertical/thin/thin.component';
 import { WebsocketService } from '../../common/services/websocket.service';
 
 
+
 @Component({
     selector: 'layout',
     templateUrl: './layout.component.html',
@@ -72,6 +73,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
+
         this.websocketService.connect();
 
         // Set the theme and scheme based on the configuration
@@ -153,9 +155,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
      * On destroy
      */
     ngOnDestroy(): void {
+
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
+        this.websocketService.disconnect();
     }
 
     // -----------------------------------------------------------------------------------------------------

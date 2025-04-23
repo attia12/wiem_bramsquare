@@ -43,7 +43,7 @@ export const AuthGuard: CanActivateFn = (route, state) => {
                 switchMap((role) => {
                     if (role !== 'FINANCIER') {
                         console.log("User does not have 'financier' role, redirecting to /not-authorized");
-                        return of(router.createUrlTree(['/sign-in']));
+                        return of(router.createUrlTree(['/not-authorized']));
                     }
                     return of(true);
                 })

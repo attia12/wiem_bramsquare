@@ -17,50 +17,110 @@
 
         <!-- Table -->
         @if (investmentTypes().length > 0) {
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-100">
-                    <tr class="text-left text-sm font-medium text-gray-700">
-                        <th class="py-3 px-4">Type</th>
-                        <th class="py-3 px-4">Description</th>
-                        <th class="py-3 px-4">Champs</th>
-                        <th class="py-3 px-4">Formules</th>
-                        <th class="py-3 px-4">Actions</th>
+<!--            <div class="overflow-x-auto">-->
+<!--                <table class="min-w-full divide-y divide-gray-200">-->
+<!--                    <thead class="bg-gray-100">-->
+<!--                    <tr class="text-left text-sm font-medium text-gray-700">-->
+<!--                        <th class="py-3 px-4">Type</th>-->
+<!--                        <th class="py-3 px-4">Description</th>-->
+<!--                        <th class="py-3 px-4">Champs</th>-->
+<!--                        <th class="py-3 px-4">Formules</th>-->
+<!--                        <th class="py-3 px-4">Actions</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody class="divide-y divide-gray-200 text-sm text-gray-700">-->
+<!--                        @for (item of investmentTypes(); track item.id) {-->
+<!--                            <tr class="hover:bg-gray-50">-->
+<!--                                <td class="py-3 px-4 font-semibold">{{ item.name }}</td>-->
+<!--                                <td class="py-3 px-4">{{ item.processorClassName }}</td>-->
+<!--                                <td class="py-3 px-4">-->
+<!--                                    <ul class="list-disc list-inside space-y-2">-->
+<!--                                        @for (key of Object.keys(item.fields); track key) {-->
+<!--                                            <li class="flex justify-between">-->
+<!--                                                <strong>{{ key }}:</strong>-->
+<!--                                                <span>{{ item.fields[key].label }} ({{ item.fields[key].type }})-->
+<!--                                                    <span *ngIf="item.fields[key].required" class="text-xs text-red-600 font-semibold">[requis]</span>-->
+<!--                                                </span>-->
+<!--                                            </li>-->
+<!--                                        }-->
+<!--                                    </ul>-->
+<!--                                </td>-->
+<!--                                <td class="py-3 px-4">-->
+<!--                                    <ul class="list-disc list-inside space-y-2">-->
+<!--                                        @for (formulaKey of Object.keys(item.derivedFieldFormulas); track formulaKey) {-->
+<!--                                            <li class="flex justify-between">-->
+<!--                                                <strong>{{ formulaKey }}:</strong>-->
+<!--                                                <span>{{ item.derivedFieldFormulas[formulaKey] }}</span>-->
+<!--                                            </li>-->
+<!--                                        }-->
+<!--                                    </ul>-->
+<!--                                </td>-->
+<!--                                <td class="py-3 px-4">-->
+<!--                                    <button-->
+<!--                                        (click)="onConfigure(item.name)"-->
+<!--                                        class="flex items-center gap-1 text-indigo-600 hover:underline"-->
+<!--                                    >-->
+<!--                                        <mat-icon fontIcon="settings" class="text-sm"></mat-icon>-->
+<!--                                        Configurer-->
+<!--                                    </button>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        }-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+            <div class="overflow-x-auto rounded-lg border border-gray-200">
+                <table class="min-w-full divide-y divide-gray-200 bg-white text-sm">
+                    <thead class="bg-gray-50 text-gray-600 font-semibold">
+                    <tr>
+                        <th class="px-6 py-4 text-left">Type</th>
+                        <th class="px-6 py-4 text-left">Description</th>
+                        <th class="px-6 py-4 text-left">Champs</th>
+                        <th class="px-6 py-4 text-left">Formules</th>
+                        <th class="px-6 py-4 text-left">Actions</th>
                     </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200 text-sm text-gray-700">
+                    <tbody class="divide-y divide-gray-100 text-gray-700">
                         @for (item of investmentTypes(); track item.id) {
                             <tr class="hover:bg-gray-50">
-                                <td class="py-3 px-4 font-semibold">{{ item.name }}</td>
-                                <td class="py-3 px-4">{{ item.processorClassName }}</td>
-                                <td class="py-3 px-4">
-                                    <ul class="list-disc list-inside space-y-2">
+                                <td class="px-6 py-4 font-bold text-[#441406] whitespace-nowrap">
+                                    {{ item.name }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600">
+                                    {{ item.processorClassName || '–' }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <ul class="space-y-1">
                                         @for (key of Object.keys(item.fields); track key) {
-                                            <li class="flex justify-between">
-                                                <strong>{{ key }}:</strong>
-                                                <span>{{ item.fields[key].label }} ({{ item.fields[key].type }})
-                                                    <span *ngIf="item.fields[key].required" class="text-xs text-red-600 font-semibold">[requis]</span>
-                                                </span>
+                                            <li class="flex flex-col text-sm">
+                                                <span class="font-medium text-indigo-700">{{ key }}</span>
+                                                <span class="text-gray-600">
+                                        {{ item.fields[key].label }} ({{ item.fields[key].type }})
+                                        <span *ngIf="item.fields[key].required"
+                                              class="ml-1 inline-block bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full font-medium">
+                                            requis
+                                        </span>
+                                    </span>
                                             </li>
                                         }
                                     </ul>
                                 </td>
-                                <td class="py-3 px-4">
-                                    <ul class="list-disc list-inside space-y-2">
+                                <td class="px-6 py-4">
+                                    <ul class="space-y-1">
                                         @for (formulaKey of Object.keys(item.derivedFieldFormulas); track formulaKey) {
-                                            <li class="flex justify-between">
-                                                <strong>{{ formulaKey }}:</strong>
-                                                <span>{{ item.derivedFieldFormulas[formulaKey] }}</span>
+                                            <li class="text-sm">
+                                                <span class="font-medium text-purple-700">{{ formulaKey }}:</span>
+                                                <span class="text-gray-700">{{ item.derivedFieldFormulas[formulaKey] }}</span>
                                             </li>
                                         }
                                     </ul>
                                 </td>
-                                <td class="py-3 px-4">
+                                <td class="px-6 py-4">
                                     <button
                                         (click)="onConfigure(item.name)"
-                                        class="flex items-center gap-1 text-indigo-600 hover:underline"
+                                        class="inline-flex items-center gap-1 px-3 py-1.5 text-sm text-indigo-600 hover:text-indigo-800 transition"
                                     >
-                                        <mat-icon fontIcon="settings" class="text-sm"></mat-icon>
+                                        <mat-icon fontIcon="settings" class="text-base"></mat-icon>
                                         Configurer
                                     </button>
                                 </td>

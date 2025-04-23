@@ -13,7 +13,9 @@ export class NotificationsService {
     /**
      * Constructor
      */
-    constructor(private _httpClient: HttpClient) {}
+    constructor(private _httpClient: HttpClient) {
+
+    }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors
@@ -37,9 +39,10 @@ export class NotificationsService {
         return this._httpClient
             .get<any[]>(`${environment.apiUrl}notifications/get-all-notifications`)
             .pipe(
-                tap((notifications:any) => {
-                    console.log("notifications",notifications);
-                    this._notifications.next(notifications.notifications);
+                tap((response:any) => {
+                    const notifications = response?.notifications || [];
+
+                    this._notifications.next(notifications);
                 })
             );
     }

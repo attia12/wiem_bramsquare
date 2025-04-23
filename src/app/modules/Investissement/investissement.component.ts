@@ -81,6 +81,7 @@ export class InvestissementComponent {
             if (result) {
                 console.log('Investissement ajouté :', result);
 
+
             }
         });
 

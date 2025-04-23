@@ -1,0 +1,76 @@
+<div class="p-6 w-full max-w-xl bg-white rounded-xl shadow-md">
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold text-[#441406]">Détails de l'investisseur</h2>
+        <div class="text-sm text-gray-500">
+            {{ data.date | date: 'fullDate' }}
+        </div>
+    </div>
+
+    <!-- Main Info -->
+    <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="space-y-1">
+            <p class="text-sm text-gray-500">Référence</p>
+            <p class="text-base font-medium text-gray-800">{{ data.ref }}</p>
+        </div>
+        <div class="space-y-1">
+            <p class="text-sm text-gray-500">Nom</p>
+            <p class="text-base font-medium text-gray-800">{{ data.investorName }}</p>
+        </div>
+        <div class="space-y-1">
+            <p class="text-sm text-gray-500">Email</p>
+            <p class="text-base font-medium text-gray-800">{{ data.email }}</p>
+        </div>
+        <div class="space-y-1">
+            <p class="text-sm text-gray-500">Type d'investissement</p>
+            <p class="text-base font-medium text-gray-800 capitalize">{{ data.typeId }}</p>
+        </div>
+    </div>
+
+    <!-- Financial Info -->
+    <div class="border-t pt-4">
+        <h3 class="text-lg font-semibold text-[#5CAC0E] mb-3">Données Financières</h3>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <p class="text-sm text-gray-500">Montant</p>
+                <p class="text-base font-semibold text-gray-800">
+                    {{ data.amount | number:'1.0-0' }} €
+                </p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">Expected ROI</p>
+                <p class="text-base font-semibold text-gray-800">
+                    {{ data.derivedFields?.expectedReturn ?? '—' }}
+                </p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">Pourcentage de parts</p>
+                <p class="text-base font-semibold text-gray-800">
+                    {{ data.derivedFields?.ownershipPercentage ?? '—' }}%
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Champs personnalisés -->
+    @if (data.fieldValues) {
+        <div class="border-t pt-4 mt-4">
+            <h3 class="text-lg font-semibold text-[#5CAC0E] mb-3">Champs personnalisés</h3>
+            <ul class="space-y-2 text-sm">
+                @for (key of Object.keys(data.fieldValues); track key) {
+                    <li class="flex justify-between border-b pb-1">
+                        <span class="text-gray-600 font-medium">{{ key }}</span>
+                        <span class="text-gray-800">{{ data.fieldValues[key] }}</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+
+    <!-- Description -->
+    @if (data.description) {
+        <div class="mt-6">
+            <h3 class="text-lg font-semibold text-[#5CAC0E] mb-2">Description</h3>
+            <p class="text-sm text-gray-700">{{ data.description }}</p>
+        </div>
+    }
+</div>

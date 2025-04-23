@@ -9,6 +9,7 @@ import { Payment, PaymentType } from '../../../domain/model/payment';
 import { PaymentService } from '../../../domain/services/payment.service';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-payment-calendar',
@@ -29,8 +30,9 @@ export class PaymentCalendarComponent {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
         selectable: true,
-        editable: false,
+        editable: true,
         dateClick: this.handleDateClick.bind(this),
+        eventDrop: this.onEventDrop.bind(this),
         events: [],
         dayMaxEventRows: 3,
         moreLinkText: "voir plus",
@@ -74,6 +76,7 @@ export class PaymentCalendarComponent {
 
             // Update calendar events
             this.calendarOptions.events = this.payments.map(p => ({
+                id: p.id,
                 title: p.beneficiary,
                 start: p.date,
                 color: this.getColorForType(p.type)
@@ -110,6 +113,36 @@ export class PaymentCalendarComponent {
             case PaymentType.SALARY: return '#6366f1';
             default: return '#9ca3af';
         }
+    }
+    onEventDrop(info: any) {
+        const newDate = info.event.startStr;
+        const paymentId = info.event.id;
+
+        // Confirm with the user
+        Swal.fire({
+            title: 'Reporter le paiement ?',
+            text: `Souhaitez-vous déplacer ce paiement au ${newDate} ?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#FF680D',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Oui, déplacer',
+            cancelButtonText: 'Annuler'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.paymentService.postponePayment(paymentId, new Date(newDate)).subscribe({
+                    next: (res) => {
+                        Swal.fire('Déplacé !', 'Le paiement a été mis à jour.', 'success');
+                    },
+                    error: () => {
+                        Swal.fire('Erreur', 'Impossible de déplacer le paiement.', 'error');
+                        info.revert();
+                    }
+                });
+            } else {
+                info.revert(); // Cancel the drag
+            }
+        });
     }
 
 }

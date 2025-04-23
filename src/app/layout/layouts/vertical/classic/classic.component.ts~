@@ -15,7 +15,7 @@ import { NotificationsComponent } from 'app/layout/common/notifications/notifica
 
 import { SearchComponent } from 'app/layout/common/search/search.component';
 import { ShortcutsComponent } from 'app/layout/common/shortcuts/shortcuts.component';
-import { UserComponent } from 'app/layout/common/user/user.component';
+
 import { Subject, takeUntil } from 'rxjs';
 import { UserProfileComponent } from '../../../common/user-profile/user-profile.component';
 
@@ -32,6 +32,8 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy
     isScreenSmall: boolean;
     navigation: Navigation;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private _audio = new Audio('/ring_bell.mp3');
+
 
     /**
      * Constructor
@@ -66,7 +68,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy
      * On init
      */
     ngOnInit(): void
-    {
+    {        window.addEventListener('click', this._unlockAudioOnce, { once: true });
         // Subscribe to navigation data
         this._navigationService.navigation$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -91,10 +93,22 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy
      */
     ngOnDestroy(): void
     {
+        window.removeEventListener('click', this._unlockAudioOnce);
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
     }
+    private _unlockAudioOnce = () => {
+        this._audio.muted = true;
+        this._audio.play().then(() => {
+            this._audio.pause();
+            this._audio.currentTime = 0;
+            this._audio.muted = false;
+            console.log('🔓 Audio context unlocked');
+        }).catch(err => {
+            console.warn('❌ Failed to unlock audio:', err);
+        });
+    };
 
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods

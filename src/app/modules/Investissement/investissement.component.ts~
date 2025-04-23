@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {
     AddInvestmentFormComponent
 } from './presentation/components/add-investment-form/add-investment-form.component';
+import { TypeInvestissementComponent } from './presentation/pages/type-investissement/type-investissement.component';
 
 @Component({
     selector: 'app-investissement',
@@ -24,6 +25,7 @@ import {
         DashboardComponent,
         InvestorListComponent,
         TrendAnalysisComponent,
+        TypeInvestissementComponent,
 
 
     ],

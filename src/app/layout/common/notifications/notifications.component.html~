@@ -46,6 +46,7 @@
                 <button
                     class="dark:text-white"
                     mat-icon-button
+                    (click)="openSettings()"
                     [matTooltip]="'Settings'"
                 >
                     <mat-icon

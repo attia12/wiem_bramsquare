@@ -188,7 +188,7 @@
                             ></div>
                         }
                         <div class="text-secondary mt-2 text-sm leading-none">
-                            {{ notification.sentAt | date: 'MMM dd, h:mm a' }}
+                            {{ formatTimeAgo(notification.sentAt) }}
                         </div>
                     </div>
                 </ng-template>
