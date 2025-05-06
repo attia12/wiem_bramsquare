@@ -1,0 +1,183 @@
+import { Component, Inject, HostListener, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import {
+    MAT_DIALOG_DATA,
+    MatDialogRef,
+} from '@angular/material/dialog';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatDivider } from '@angular/material/divider';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgClass, NgIf } from '@angular/common';
+
+@Component({
+    selector: 'app-pdf-viewer',
+    imports: [
+        MatIcon,
+        MatIconButton,
+        MatTooltip,
+        MatDivider,
+        MatProgressSpinner,
+
+        NgClass,
+        NgIf
+    ],
+    templateUrl: './pdf-viewer.component.html',
+    standalone: true,
+    styleUrl: './pdf-viewer.component.scss',
+})
+export class PdfViewerComponent implements OnInit {
+    sanitizedUrl!: SafeResourceUrl;
+    isLoading = true;
+    isScrolled = false;
+
+    // Zoom controls
+    zoomLevel = 1.0;
+    minZoom = 0.5;
+    maxZoom = 3.0;
+    zoomStep = 0.1;
+
+    // Page navigation
+    currentPage = 1;
+    totalPages = 1;
+
+    // Rotation
+    rotation = 0;
+
+    // Fullscreen
+    isFullscreen = false;
+
+    constructor(
+        private sanitizer: DomSanitizer,
+        private elementRef: ElementRef,
+        public dialogRef: MatDialogRef<PdfViewerComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: {
+            pdfUrl: string,
+            fileName?: string
+        }
+    ) {}
+
+    ngOnInit(): void {
+        this.sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.data.pdfUrl);
+
+
+        setTimeout(() => {
+            this.isLoading = false;
+            this.totalPages = 10;
+        }, 1000);
+    }
+
+
+    previousPage(): void {
+        if (this.currentPage > 1) {
+            this.currentPage--;
+        }
+    }
+
+    nextPage(): void {
+        if (this.currentPage < this.totalPages) {
+            this.currentPage++;
+        }
+    }
+
+    goToPage(event: Event): void {
+        const input = event.target as HTMLInputElement;
+        const page = parseInt(input.value, 10);
+
+        if (page >= 1 && page <= this.totalPages) {
+            this.currentPage = page;
+        } else if (page < 1) {
+            this.currentPage = 1;
+            input.value = '1';
+        } else {
+            this.currentPage = this.totalPages;
+            input.value = this.totalPages.toString();
+        }
+    }
+
+    // Zoom methods
+    zoomIn(): void {
+        if (this.zoomLevel < this.maxZoom) {
+            this.zoomLevel = Math.min(this.zoomLevel + this.zoomStep, this.maxZoom);
+        }
+    }
+
+    zoomOut(): void {
+        if (this.zoomLevel > this.minZoom) {
+            this.zoomLevel = Math.max(this.zoomLevel - this.zoomStep, this.minZoom);
+        }
+    }
+
+    fitToWidth(): void {
+        this.zoomLevel = 1.0;
+    }
+
+
+    rotatePdf(): void {
+        this.rotation = (this.rotation + 90) % 360;
+    }
+
+
+    toggleFullscreen(): void {
+        this.isFullscreen = !this.isFullscreen;
+
+        const container = this.elementRef.nativeElement.querySelector('.pdf-dialog-container');
+
+        if (this.isFullscreen) {
+            if (container.requestFullscreen) {
+                container.requestFullscreen();
+            } else if (container.mozRequestFullScreen) {
+                container.mozRequestFullScreen();
+            } else if (container.webkitRequestFullscreen) {
+                container.webkitRequestFullscreen();
+            } else if (container.msRequestFullscreen) {
+                container.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if ((document as any).mozCancelFullScreen) {
+                (document as any).mozCancelFullScreen();
+            } else if ((document as any).webkitExitFullscreen) {
+                (document as any).webkitExitFullscreen();
+            } else if ((document as any).msExitFullscreen) {
+                (document as any).msExitFullscreen();
+            }
+        }
+    }
+
+    @HostListener('document:fullscreenchange', ['$event'])
+    @HostListener('document:webkitfullscreenchange', ['$event'])
+    @HostListener('document:mozfullscreenchange', ['$event'])
+    @HostListener('document:MSFullscreenChange', ['$event'])
+    onFullscreenChange(): void {
+        this.isFullscreen = !!document.fullscreenElement;
+    }
+
+    // Scroll handling
+    onScroll(event: Event): void {
+        const element = event.target as HTMLElement;
+        this.isScrolled = element.scrollTop > 10;
+    }
+
+    // Action methods
+    downloadPdf(): void {
+        const link = document.createElement('a');
+        link.href = this.data.pdfUrl;
+        link.download = this.data.fileName || 'document.pdf';
+        link.target = '_blank';
+        link.click();
+    }
+
+    printPdf(): void {
+        const iframe = this.elementRef.nativeElement.querySelector('iframe');
+        if (iframe) {
+            iframe.contentWindow.print();
+        }
+    }
+
+    close(): void {
+        this.dialogRef.close();
+    }
+}

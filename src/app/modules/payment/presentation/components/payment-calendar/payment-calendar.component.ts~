@@ -80,7 +80,7 @@ export class PaymentCalendarComponent {
                 id: p.id,
                 title: p.beneficiary,
                start: p.date,
-
+                
 
                 // color: this.getColorForType(p.type)
                 color: this.getColorForPayment(p),

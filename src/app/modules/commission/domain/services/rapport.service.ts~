@@ -57,7 +57,7 @@ export class RapportService {
 
 
 
-        return this._httpClient.get<Blob>(`${environment.apiOrderUrl}restaurant/${restaurantId}/financial-report/pdf`, {
+        return this._httpClient.get<Blob>(`${environment.apiOrderUrl}restaurant/${restaurantId}`, {
             responseType: 'blob' as 'json',
             headers: new HttpHeaders().set('Accept', 'application/pdf')
         });

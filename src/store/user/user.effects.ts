@@ -60,10 +60,12 @@ export class UserEffects {
         this.actions$.pipe(
             ofType(logout),
             map(() => {
+                this.router.navigate(['/sign-in']).then(() => {
+                    window.location.reload();
+                });
 
-
-                const urlTree = this.router.createUrlTree(['/sign-in']);
-                this.router.navigateByUrl(urlTree);
+                // const urlTree = this.router.createUrlTree(['/sign-in']);
+                // this.router.navigateByUrl(urlTree);
                 return logoutSuccess(); // Dispatch logout success action
             })
         )

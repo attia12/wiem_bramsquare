@@ -1,0 +1,43 @@
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+    <!-- Pie Chart -->
+    <div class="bg-white shadow rounded-xl p-6">
+        <h2 class="text-lg font-bold text-gray-800">Répartition des commissions par catégorie</h2>
+        <p class="text-sm text-gray-500 mb-4">Analyse des commissions générées par type de restaurant</p>
+
+        <div class="flex justify-center items-center w-full h-80">
+            <canvas baseChart
+                    [data]="pieChartData()"
+                    [options]="pieChartOptions"
+                    [type]="'doughnut'">
+            </canvas>
+        </div>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="bg-white shadow rounded-xl p-6">
+        <h2 class="text-lg font-bold text-gray-800">Revenus mensuels des commissions</h2>
+        <p class="text-sm text-gray-500 mb-4">Évolution mensuelle des revenus générés par les commissions</p>
+
+        <div class="w-full h-80">
+            <canvas baseChart
+                    [data]="barChartData()"
+                    [options]="barChartOptions"
+                    [type]="'bar'">
+            </canvas>
+        </div>
+    </div>
+</div>
+<div class="grid grid-cols-1 gap-6 p-6">
+    <div class="bg-white shadow rounded-xl p-6">
+        <h2 class="text-lg font-bold text-gray-800">Performances des partenaires</h2>
+        <p class="text-sm text-gray-500 mb-4">Comparaison des taux de commission et des revenus générés</p>
+
+        <div class="w-full h-[32rem]">
+            <canvas baseChart
+                    [data]="partnerPerformanceChartData()"
+                    [options]="partnerPerformanceChartOptions"
+                    [type]="'bar'">
+            </canvas>
+        </div>
+    </div>
+</div>

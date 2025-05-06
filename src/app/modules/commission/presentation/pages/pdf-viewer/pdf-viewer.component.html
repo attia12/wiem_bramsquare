@@ -1,0 +1,70 @@
+<div class="pdf-dialog-container">
+    <div class="pdf-header">
+        <div class="pdf-title">
+            <mat-icon class="document-icon">description</mat-icon>
+            <h2>{{ data.fileName || 'Document' }}</h2>
+        </div>
+        <div class="pdf-actions">
+            <button mat-icon-button class="action-button" matTooltip="Download" (click)="downloadPdf()">
+                <mat-icon>cloud_download</mat-icon>
+            </button>
+            <button mat-icon-button class="action-button" matTooltip="Print" (click)="printPdf()">
+                <mat-icon>print</mat-icon>
+            </button>
+            <button mat-icon-button class="action-button" matTooltip="Close" (click)="close()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="pdf-toolbar" [ngClass]="{'scrolled': isScrolled}">
+        <div class="toolbar-section">
+            <button mat-icon-button class="nav-button" matTooltip="Previous Page" (click)="previousPage()" [disabled]="currentPage <= 1">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <div class="page-navigation">
+                <span>Page</span>
+                <input class="page-input" type="number" [value]="currentPage" (change)="goToPage($event)" min="1" [max]="totalPages">
+                <span>of {{ totalPages }}</span>
+            </div>
+            <button mat-icon-button class="nav-button" matTooltip="Next Page" (click)="nextPage()" [disabled]="currentPage >= totalPages">
+                <mat-icon>arrow_forward</mat-icon>
+            </button>
+        </div>
+
+        <div class="toolbar-section">
+            <button mat-icon-button class="zoom-button" matTooltip="Zoom Out" (click)="zoomOut()" [disabled]="zoomLevel <= minZoom">
+                <mat-icon>zoom_out</mat-icon>
+            </button>
+            <div class="zoom-level">{{ (zoomLevel * 100).toFixed(0) }}%</div>
+            <button mat-icon-button class="zoom-button" matTooltip="Zoom In" (click)="zoomIn()" [disabled]="zoomLevel >= maxZoom">
+                <mat-icon>zoom_in</mat-icon>
+            </button>
+            <button mat-icon-button class="fit-button" matTooltip="Fit to Width" (click)="fitToWidth()">
+                <mat-icon>settings_overscan</mat-icon>
+            </button>
+        </div>
+
+        <div class="toolbar-section">
+            <button mat-icon-button class="rotate-button" matTooltip="Rotate" (click)="rotatePdf()">
+                <mat-icon>rotate_right</mat-icon>
+            </button>
+            <button mat-icon-button class="fullscreen-button" matTooltip="Fullscreen" (click)="toggleFullscreen()">
+                <mat-icon>fullscreen</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="pdf-content-wrapper" (scroll)="onScroll($event)">
+        <div class="pdf-container" [style.transform]="'scale(' + zoomLevel + ') rotate(' + rotation + 'deg)'">
+            <iframe [src]="sanitizedUrl" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <div class="loading-overlay" *ngIf="isLoading">
+        <mat-spinner diameter="50"></mat-spinner>
+        <span>Loading document...</span>
+    </div>
+</div>

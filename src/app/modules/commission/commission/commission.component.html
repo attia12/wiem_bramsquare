@@ -12,8 +12,8 @@
                 <button class="flex items-center gap-1 border px-4 py-2 rounded-md hover:bg-gray-100 text-sm">
                     <mat-icon>download</mat-icon> Exporter CSV
                 </button>
-                <button class="flex items-center gap-1 border px-4 py-2 rounded-md hover:bg-gray-100 text-sm">
-                    <mat-icon>description</mat-icon> Rapport PDF
+                <button  (click)="exportTableToPdf()" class="flex items-center gap-1 border px-4 py-2 rounded-md hover:bg-gray-100 text-sm">
+                    <mat-icon >description</mat-icon> Rapport PDF
                 </button>
             </div>
         </div>
@@ -22,19 +22,19 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <div class="bg-white p-6 rounded-lg shadow text-center ">
                 <p class="text-lg font-medium mb-2">Commission Totale</p>
-                <p class="text-3xl font-bold text-gray-800">12 115,99 €</p>
+                <p class="text-3xl font-bold text-gray-800">{{dataCommissionRevenueTotal}} €</p>
                 <p class="text-sm text-gray-500 mt-1">7.9% du chiffre d'affaires</p>
             </div>
 
             <div class="bg-white p-6 rounded-lg shadow text-center">
-                <p class="text-lg font-medium mb-2">Chiffre d'Affaires Total</p>
-                <p class="text-3xl font-bold text-gray-800">153 680 €</p>
+                <p class="text-lg font-medium mb-2">Revenu Total</p>
+                <p class="text-3xl font-bold text-gray-800">{{dataRevenuTotal}} €</p>
                 <p class="text-sm text-gray-500 mt-1">Généré par 10 partenaires</p>
             </div>
 
             <div class="bg-white p-6 rounded-lg shadow text-center">
                 <p class="text-lg font-medium mb-2">Taux Moyen</p>
-                <p class="text-3xl font-bold text-gray-800">7.9%</p>
+                <p class="text-3xl font-bold text-gray-800">{{dataAverageCommissionRateTotal}}%</p>
                 <p class="text-sm text-gray-500 mt-1">Taux de commission moyen</p>
             </div>
         </div>
@@ -72,11 +72,11 @@
         <!-- Tab Content -->
         @switch (selectedTab()) {
             @case ('regles') {
-<!--                <app-commission-rules />-->
-                hello
+              <app-list-commision/>
+
             }
             @case ('analyse') {
-<!--                <app-commission-analysis />-->
+                <app-commission-analysis />
             }
             @case ('rapports') {
                 <app-commission-reports />

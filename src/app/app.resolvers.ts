@@ -10,7 +10,7 @@ export const initialDataResolver = () => {
     const messagesService = inject(MessagesService);
     const navigationService = inject(NavigationService);
     const notificationsService = inject(NotificationsService);
-    
+
     const shortcutsService = inject(ShortcutsService);
 
     // Fork join multiple API endpoint calls to wait all of them to finish
@@ -18,7 +18,7 @@ export const initialDataResolver = () => {
         navigationService.get(),
         messagesService.getAll(),
         notificationsService.getAll(),
-       
+
         shortcutsService.getAll(),
     ]);
 };

@@ -13,6 +13,7 @@ export class WebsocketService {
   constructor(private notificationsService: NotificationsService) { }
 
     connect(): void {
+
         let ws =new SockJS('http://localhost:8080/ws');
 
         this.stompClient = Stomp.over(ws);

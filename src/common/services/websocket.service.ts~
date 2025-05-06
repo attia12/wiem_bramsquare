@@ -13,18 +13,19 @@ export class WebsocketService {
   constructor(private notificationsService: NotificationsService) { }
 
     connect(): void {
+      const token=localStorage.getItem("authToken");
         let ws =new SockJS('http://localhost:8080/ws');
 
         this.stompClient = Stomp.over(ws);
 
-        this.stompClient.connect({}, () => {
+        this.stompClient.connect({'Authorization': 'Bearer '+token}, () => {
             this.stompClient.subscribe('/topic/notifications', (message: any) => {
                 const data = JSON.parse(message.body);
                 console.log('🔔 Notification:', data);
                 this.notificationsService.notifications$
                     .pipe(take(1))
                     .subscribe((current) => {
-                        
+                        current = current || [];
                         this.notificationsService['_notifications'].next([
                             { ...data, read: false },
                             ...current,

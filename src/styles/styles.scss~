@@ -1,0 +1,104 @@
+/* Apply maroon background and white text */
+
+@use 'ngx-toastr/toastr';
+.fc .fc-button {
+    background-color: #441406 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
+}
+
+/* Keep same maroon color on hover */
+.fc .fc-button:hover {
+    background-color: #441406 !important;
+}
+
+/* Optional: Ensure icons look consistent */
+.fc .fc-button .fc-icon {
+    font-size: 1rem !important;
+    color: white !important;
+}
+
+
+.custom-toast {
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Success Toast Custom Style */
+.toast-success.custom-toast {
+    background-color: #28a745;
+    color: white;
+}
+
+.toast-icon-success {
+    color: white;
+}
+
+/* Error Toast Custom Style */
+.toast-error.custom-toast {
+    background-color: #dc3545;
+    color: white;
+}
+
+.toast-icon-error {
+    color: white;
+}
+
+/* Info Toast Custom Style */
+.toast-info.custom-toast {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.toast-icon-info {
+    color: white;
+}
+
+/* Warning Toast Custom Style */
+.toast-warning.custom-toast {
+    background-color: #ffc107;
+    color: black;
+}
+
+.toast-icon-warning {
+    color: black;
+}
+
+/* Icon Size and Alignment */
+.toast-icon-success,
+.toast-icon-error,
+.toast-icon-info,
+.toast-icon-warning {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+/* FontAwesome Icons Example */
+.toast-icon-success:before {
+    content: '\f00c'; /* FontAwesome check-circle */
+    font-family: 'FontAwesome';
+}
+
+.toast-icon-error:before {
+    content: '\f071'; /* FontAwesome exclamation-circle */
+    font-family: 'FontAwesome';
+}
+
+.toast-icon-info:before {
+    content: '\f05a'; /* FontAwesome info-circle */
+    font-family: 'FontAwesome';
+}
+
+.toast-icon-warning:before {
+    content: '\f071'; /* FontAwesome exclamation-circle */
+    font-family: 'FontAwesome';
+}
+
+
+

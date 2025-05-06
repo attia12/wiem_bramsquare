@@ -21,7 +21,7 @@ export class DeleveryCoutService {
     }
     getData(): Observable<DeliveryCost[]>
     {
-        return this._httpClient.get(`${environment.apiUrl}delivery`).pipe(
+        return this._httpClient.get(`${environment.apiUrl1}delivery`).pipe(
             tap((response: any) =>
             {
                 this._data.next(response);

@@ -58,8 +58,8 @@ export const appRoutes: Route[] = [
 
     {
         path: '',
-        canActivate: [AuthGuard],
-         canActivateChild: [AuthGuard],
+          canActivate: [AuthGuard],
+          canActivateChild: [AuthGuard],
         component: LayoutComponent,
         data: {
             layout: 'classic'
@@ -77,6 +77,7 @@ export const appRoutes: Route[] = [
                     {path:'commissions', loadChildren: () => import('app/modules/commission/commission.routes')},
                     {path:'paylist', loadChildren: () => import('app/modules/paylist/paylist.routes')},
                     {path:'profile', loadChildren: () => import('app/modules/user/user.routes')},
+                    {path:'notes', loadChildren: () => import('app/modules/notes/notes.routes')},
 
             ]},
             {path: '404-not-found', pathMatch: 'full', loadChildren: () => import('app/modules/admin/pages/error/error-404/error-404.routes')},

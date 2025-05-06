@@ -1,0 +1,78 @@
+<div class="p-4 space-y-6">
+
+    <div class="flex flex-wrap gap-4 items-center">
+        <input
+            type="text"
+            [(ngModel)]="search"
+            placeholder="Rechercher par nom ou catégorie"
+            class="flex-1 min-w-[250px] px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <select
+            [(ngModel)]="sort"
+            class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+            <option value="asc">Nom (A-Z)</option>
+            <option value="desc">Nom (Z-A)</option>
+        </select>
+
+        <button
+            class="flex items-center gap-2 px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition"
+            (click)="modifyRates()"
+        >
+            <span *ngIf="editMode(); else modifyMode">Enregistrer</span>
+            <ng-template #modifyMode>Modifier les taux</ng-template>
+
+        </button>
+
+        <button
+            class="flex items-center gap-2 px-4 py-2 rounded-md bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
+            (click)="refresh()"
+        >
+            <mat-icon>refresh</mat-icon> Mise à jour auto
+        </button>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto bg-white rounded-lg shadow">
+        <table class="min-w-full text-sm text-gray-700">
+            <thead class="bg-gray-50 font-semibold text-gray-600">
+            <tr>
+                <th class="px-6 py-4 text-left">Nom</th>
+                <th class="px-6 py-4 text-left">Specialite</th>
+                <th class="px-6 py-4 text-left">Taux de Commission</th>
+
+                <th class="px-6 py-4 text-left">Commission Générée</th>
+                <th class="px-6 py-4 text-left">Actions</th>
+            </tr>
+            </thead>
+            <tbody class="divide-y">
+                @for (item of filteredData(); track item.nom) {
+                    <tr class="hover:bg-gray-50 transition">
+                        <td class="px-6 py-4">{{ item.nom }}</td>
+                        <td class="px-6 py-4">{{ item.specialite }}</td>
+                        <td class="p-4">
+                            @if (editMode()) {
+                                <div class="flex items-center gap-1">
+                                    <input type="number" [(ngModel)]="item.commission" class="border rounded px-2 py-1 w-16 text-right text-sm" />
+                                    <span>%</span>
+                                </div>
+                            } @else {
+                                {{ item.commission }}%
+                            }
+                        </td>
+
+                        <td class="px-6 py-4">{{ item.revenueTotalCommission | number:'1.0-2' }} €</td>
+                        <td class="px-6 py-4">
+                            <button mat-icon-button>
+                                <mat-icon  (click)="exportPdfForOneRestaurant(item)">description</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

@@ -1,12 +1,20 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import {
+    HttpErrorResponse,
+    HttpEvent,
+    HttpHandler,
+    HttpInterceptor,
+    HttpInterceptorFn,
+    HttpRequest,
+} from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectRefreshToken, selectToken } from '../../../store/user/user.selectors';
-import { catchError, from, of, switchMap } from 'rxjs';
+import { catchError, EMPTY, from, Observable, of, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../../../app/modules/auth/domain/services/auth.service';
 import { loginSuccess, logout } from '../../../store/user/user.actions';
 import { firstValueFrom } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const _store = inject(Store);
@@ -16,12 +24,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     return from(
         (async () => {
             try {
+
                 const token = await firstValueFrom(_store.select(selectToken));
                 const refreshToken = await firstValueFrom(_store.select(selectRefreshToken));
                 if (refreshToken && jwtHelper.isTokenExpired(refreshToken)) {
                     console.log("refresh token ------------",refreshToken)
 
-                    //_store.dispatch(logout({ refreshToken }));
+
                     _store.dispatch(logout());
                     return of(req);
                 }
@@ -78,3 +87,4 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         })()
     ).pipe(switchMap(response => response));
 };
+
