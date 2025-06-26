@@ -12,7 +12,7 @@ import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { provideFuse } from '@fuse';
 import { TranslocoService, provideTransloco } from '@jsverse/transloco';
 import { appRoutes } from 'app/app.routes';
-import { provideAuth } from 'app/core/auth/auth.provider';
+
 import { provideIcons } from 'app/core/icons/icons.provider';
 import { MockApiService } from 'app/mock-api';
 import { firstValueFrom } from 'rxjs';
@@ -101,7 +101,7 @@ export const appConfig: ApplicationConfig = {
 
 
         // Fuse
-        provideAuth(),
+
         provideIcons(),
         provideFuse({
             mockApi: {
